@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
@@ -23,13 +22,18 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
+import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.Send
+import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -84,34 +88,45 @@ fun Authentication(goToHome: () -> Unit) {
 
 @Composable
 fun Home() {
-    Column(
-        Modifier
-            .fillMaxSize()
-            .background(SecondaryBackground)
-            .padding(horizontal = 16.dp, vertical = 32.dp),
-    ) {
-        TopBar()
-        Spacer(modifier = Modifier.height(20.dp))
-        Text("Your notes:", fontSize = 28.sp, fontWeight = FontWeight.ExtraBold)
 
-        LazyColumn(verticalArrangement = spacedBy(20.dp)) {
-            item {
-                Text("Public Notes", fontWeight = FontWeight.Bold, fontSize = 22.sp)
+    Scaffold(modifier = Modifier
+        .background(SecondaryBackground)
+        .padding(horizontal = 16.dp, vertical = 32.dp),
+        backgroundColor = SecondaryBackground,
+        topBar = {
+            TopBar()
+        },
+        floatingActionButton = {
+            FloatingActionButton(onClick = {}) {
+                Icon(imageVector = Icons.Filled.KeyboardArrowUp, contentDescription = null)
             }
-            items(3) {
-                if (it > 0) {
-                    Spacer(Modifier.height(10.dp))
+        }) {
+        Column(
+            Modifier
+                .padding(it)
+                .fillMaxSize(),
+        ) {
+            Text("Your notes:", fontSize = 32.sp, fontWeight = FontWeight.ExtraBold)
+
+            LazyColumn(verticalArrangement = spacedBy(20.dp)) {
+                item {
+                    Text("Public Notes", fontWeight = FontWeight.Bold, fontSize = 22.sp)
                 }
-                NoteBox(num = it)
-            }
-            item {
-                Text("Private Notes", fontWeight = FontWeight.Bold, fontSize = 22.sp)
-            }
-            items(3) {
-                if (it > 0) {
-                    Spacer(Modifier.height(10.dp))
+                items(4) {
+                    if (it > 0) {
+                        Spacer(Modifier.height(10.dp))
+                    }
+                    NoteBox(num = it)
                 }
-                NoteBox(num = it)
+                item {
+                    Text("Private Notes", fontWeight = FontWeight.Bold, fontSize = 22.sp)
+                }
+                items(4) {
+                    if (it > 0) {
+                        Spacer(Modifier.height(10.dp))
+                    }
+                    NoteBox(num = it)
+                }
             }
         }
     }
@@ -121,15 +136,16 @@ fun Home() {
 fun NoteBox(modifier: Modifier = Modifier, num: Int) {
     Box(
         modifier = modifier
+            .padding(horizontal = 16.dp)
             .fillMaxWidth()
             .height(64.dp)
             .clip(RoundedCornerShape(15.dp))
-            .border(1.dp, Color.LightGray, RoundedCornerShape(15.dp))
+            .background(Color.White)
             .clickable { }
             .padding(16.dp),
         contentAlignment = Alignment.Center,
     ) {
-        Text("Note $num")
+        Text("Note $num", fontWeight = FontWeight.Bold, color = Color(0xFF3A1010))
     }
 }
 
