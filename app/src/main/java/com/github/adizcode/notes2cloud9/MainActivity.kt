@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
@@ -30,10 +31,8 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material.icons.filled.FileUpload
 import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material.icons.filled.Send
-import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -98,7 +97,7 @@ fun Home() {
         },
         floatingActionButton = {
             FloatingActionButton(onClick = {}) {
-                Icon(imageVector = Icons.Filled.KeyboardArrowUp, contentDescription = null)
+                Icon(imageVector = Icons.Filled.FileUpload, contentDescription = null)
             }
         }) {
         Column(
@@ -106,6 +105,7 @@ fun Home() {
                 .padding(it)
                 .fillMaxSize(),
         ) {
+            Spacer(modifier = Modifier.height(10.dp))
             Text("Your notes:", fontSize = 32.sp, fontWeight = FontWeight.ExtraBold)
 
             LazyColumn(verticalArrangement = spacedBy(20.dp)) {
@@ -163,10 +163,12 @@ fun TopBar() {
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .size(40.dp)
-                    .clip(CircleShape),
+                    .size(44.dp)
+                    .clip(CircleShape)
+                    .border(4.dp, Color.White, CircleShape)
+                    .clickable { },
             )
-            Text("Hi, Kira!")
+            Text("Hi, Kira!", fontSize = 18.sp)
         }
         IconButton(onClick = { /*TODO*/ }) {
             Icon(modifier = Modifier.size(28.dp),
