@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -16,15 +17,21 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
+import androidx.compose.material.BottomSheetScaffold
+import androidx.compose.material.BottomSheetState
+import androidx.compose.material.BottomSheetValue
 import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FileUpload
+import androidx.compose.material.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -42,55 +49,89 @@ import com.github.adizcode.notes2cloud9.TopBar
 import com.github.adizcode.notes2cloud9.navigation.MainNavHost
 import com.github.adizcode.notes2cloud9.navigation.MainSubScreens
 import com.github.adizcode.notes2cloud9.ui.theme.SecondaryBackground
+import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun MainScaffold() {
+    val bottomSheetScaffoldState = rememberBottomSheetScaffoldState(
+        bottomSheetState = BottomSheetState(BottomSheetValue.Collapsed)
+    )
+    val coroutineScope = rememberCoroutineScope()
     val navController = rememberNavController()
 
-    Scaffold(modifier = Modifier
-        .background(SecondaryBackground),
-        backgroundColor = SecondaryBackground,
-        topBar = {
-            TopBar(Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp))
-        },
-        floatingActionButton = {
-            FloatingActionButton(onClick = {}) {
-                Icon(imageVector = Icons.Filled.FileUpload, contentDescription = null)
+
+    BottomSheetScaffold(
+        scaffoldState = bottomSheetScaffoldState,
+        sheetShape = RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp),
+        sheetContent = {
+            Box(
+                Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(0.9f)
+                    .padding(16.dp)
+            ) {
+                Text(text = "Hello from sheet", fontSize = 28.sp, fontWeight = FontWeight.Bold)
             }
-        },
-        bottomBar = {
-            BottomNavigation {
-                val navBackStackEntry by navController.currentBackStackEntryAsState()
-                val currentDestination = navBackStackEntry?.destination
-                MainSubScreens.allScreens.forEach { screen ->
-                    BottomNavigationItem(
-                        icon = { Icon(screen.imageVector, contentDescription = null) },
-                        label = { Text(screen.label) },
-                        selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
-                        onClick = {
-                            navController.navigate(screen.route) {
-                                // Pop up to the start destination of the graph to
-                                // avoid building up a large stack of destinations
-                                // on the back stack as users select items
-                                popUpTo(navController.graph.findStartDestination().id) {
-                                    saveState = true
-                                }
-                                // Avoid multiple copies of the same destination when
-                                // reselecting the same item
-                                launchSingleTop = true
-                                // Restore state when reselecting a previously selected item
-                                restoreState = true
-                            }
-                        }
-                    )
+        }, sheetPeekHeight = 0.dp
+    ) {
+        Scaffold(modifier = Modifier
+            .background(SecondaryBackground),
+            backgroundColor = SecondaryBackground,
+            topBar = {
+                TopBar(Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp))
+            },
+            floatingActionButton = {
+                FloatingActionButton(onClick = {}) {
+                    Icon(imageVector = Icons.Filled.FileUpload, contentDescription = null)
                 }
-            }
-        }) {
-        MainNavHost(modifier = Modifier
-            .padding(it)
-            .padding(horizontal = 16.dp),
-            navController = navController)
-//        MyNotes(modifier = Modifier.padding(it))
+            },
+            bottomBar = {
+                BottomNavigation {
+                    val navBackStackEntry by navController.currentBackStackEntryAsState()
+                    val currentDestination = navBackStackEntry?.destination
+                    MainSubScreens.allScreens.forEach { screen ->
+                        BottomNavigationItem(
+                            icon = { Icon(screen.imageVector, contentDescription = null) },
+                            label = { Text(screen.label) },
+                            selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
+                            onClick = {
+
+                                if (screen == MainSubScreens.Search) {
+
+                                    coroutineScope.launch {
+
+                                        if (bottomSheetScaffoldState.bottomSheetState.isCollapsed) {
+                                            bottomSheetScaffoldState.bottomSheetState.expand()
+                                        } else {
+                                            bottomSheetScaffoldState.bottomSheetState.collapse()
+                                        }
+                                    }
+                                } else {
+                                    navController.navigate(screen.route) {
+                                        // Pop up to the start destination of the graph to
+                                        // avoid building up a large stack of destinations
+                                        // on the back stack as users select items
+                                        popUpTo(navController.graph.findStartDestination().id) {
+                                            saveState = true
+                                        }
+                                        // Avoid multiple copies of the same destination when
+                                        // reselecting the same item
+                                        launchSingleTop = true
+                                        // Restore state when reselecting a previously selected item
+                                        restoreState = true
+                                    }
+                                }
+                            }
+                        )
+                    }
+                }
+            }) {
+            MainNavHost(modifier = Modifier
+                .padding(it)
+                .padding(horizontal = 16.dp),
+                navController = navController)
+        }
     }
 }
 
@@ -126,13 +167,8 @@ fun HomeUi() {
 }
 
 @Composable
-fun SearchUi() {
-
-}
-
-@Composable
 fun ProfileUi() {
-
+    MyNotes()
 }
 
 @Composable
