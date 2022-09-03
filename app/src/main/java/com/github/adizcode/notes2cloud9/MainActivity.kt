@@ -44,9 +44,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.github.adizcode.notes2cloud9.ui.theme.Background
 import com.github.adizcode.notes2cloud9.ui.theme.Notes2Cloud9Theme
@@ -59,29 +56,10 @@ class MainActivity : ComponentActivity() {
         setContent {
             Notes2Cloud9Theme {
 
-                val navController = rememberNavController()
-
-                NavHost(navController = navController, startDestination = "authentication") {
-                    composable("authentication") { Authentication { navController.navigate("home") } }
-                    composable("home") { Home() }
-                    composable("myNotes") { }
-                    composable("profile") { }
-                }
+                MyAppNavHost()
 
             }
         }
-    }
-}
-
-@Composable
-fun Authentication(goToHome: () -> Unit) {
-
-    val (isLogin, setLogin) = remember { mutableStateOf(true) }
-
-    if (isLogin) {
-        Login(goToHome) { setLogin(false) }
-    } else {
-        Register(goToHome) { setLogin(true) }
     }
 }
 
@@ -179,7 +157,7 @@ fun TopBar() {
 }
 
 @Composable
-fun Login(goToHome: () -> Unit, goToRegister: () -> Unit) {
+fun Login(navigateToHome: () -> Unit, navigateToRegister: () -> Unit) {
     val (uid, setUid) = remember { mutableStateOf("") }
     val (password, setPassword) = remember { mutableStateOf("") }
 
@@ -202,7 +180,7 @@ fun Login(goToHome: () -> Unit, goToRegister: () -> Unit) {
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        Button(onClick = goToHome,
+        Button(onClick = navigateToHome,
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = TextBlack,
                 contentColor = Background,
@@ -212,7 +190,7 @@ fun Login(goToHome: () -> Unit, goToRegister: () -> Unit) {
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        Button(onClick = goToRegister,
+        Button(onClick = navigateToRegister,
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = TextBlack,
                 contentColor = Background,
@@ -224,7 +202,7 @@ fun Login(goToHome: () -> Unit, goToRegister: () -> Unit) {
 }
 
 @Composable
-fun Register(goToHome: () -> Unit, goToLogin: () -> Unit) {
+fun Register(navigateToHome: () -> Unit, navigateToLogin: () -> Unit) {
 
     val (uid, setUid) = remember { mutableStateOf("") }
     val (password, setPassword) = remember { mutableStateOf("") }
@@ -248,7 +226,7 @@ fun Register(goToHome: () -> Unit, goToLogin: () -> Unit) {
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        Button(onClick = goToHome,
+        Button(onClick = navigateToHome,
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = TextBlack,
                 contentColor = Background,
@@ -258,7 +236,7 @@ fun Register(goToHome: () -> Unit, goToLogin: () -> Unit) {
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        Button(onClick = goToLogin,
+        Button(onClick = navigateToLogin,
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = TextBlack,
                 contentColor = Background,
