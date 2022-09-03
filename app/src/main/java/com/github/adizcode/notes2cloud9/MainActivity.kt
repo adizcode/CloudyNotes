@@ -1,10 +1,8 @@
 package com.github.adizcode.notes2cloud9
 
-import android.net.wifi.hotspot2.pps.HomeSp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
@@ -14,6 +12,9 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
@@ -29,13 +30,16 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import coil.compose.AsyncImage
 import com.github.adizcode.notes2cloud9.ui.theme.Background
 import com.github.adizcode.notes2cloud9.ui.theme.Notes2Cloud9Theme
 import com.github.adizcode.notes2cloud9.ui.theme.SecondaryBackground
@@ -75,15 +79,42 @@ fun Authentication(goToHome: () -> Unit) {
 
 @Composable
 fun Home() {
-    Column(Modifier
-        .fillMaxSize()
-        .background(SecondaryBackground)) {
-        Row(Modifier.fillMaxWidth()) {
-            Text("Image")
+    Column(
+        Modifier
+            .fillMaxSize()
+            .background(SecondaryBackground)
+            .padding(horizontal = 16.dp, vertical = 32.dp),
+    ) {
+        TopBar()
+        Spacer(modifier = Modifier.height(20.dp))
+        Text("Notes for you:", fontSize = 28.sp, fontWeight = FontWeight.ExtraBold)
+
+    }
+}
+
+@Composable
+fun TopBar() {
+    Row(modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = spacedBy(10.dp),
+        ) {
+            AsyncImage(
+                model = "https://4dhealth.ca/wp-content/uploads/2021/04/happy.jpg",
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .size(40.dp)
+                    .clip(CircleShape),
+            )
             Text("Hi, Kira!")
-            IconButton(onClick = { /*TODO*/ }) {
-                Icon(imageVector = Icons.Filled.Notifications, contentDescription = null)
-            }
+        }
+        IconButton(onClick = { /*TODO*/ }) {
+            Icon(modifier = Modifier.size(28.dp),
+                imageVector = Icons.Filled.Notifications,
+                contentDescription = null)
         }
     }
 }
