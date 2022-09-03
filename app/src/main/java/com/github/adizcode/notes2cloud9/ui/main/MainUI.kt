@@ -30,7 +30,17 @@ import com.github.adizcode.notes2cloud9.TopBar
 import com.github.adizcode.notes2cloud9.ui.theme.SecondaryBackground
 
 @Composable
-fun Main() {
+fun HomeUi() {
+
+}
+
+@Composable
+fun SearchUi() {
+
+}
+
+@Composable
+fun ProfileUi() {
 
 }
 
