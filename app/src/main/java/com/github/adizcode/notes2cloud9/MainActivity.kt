@@ -42,8 +42,8 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun TopBar() {
-    Row(modifier = Modifier.fillMaxWidth(),
+fun TopBar(modifier: Modifier = Modifier) {
+    Row(modifier = modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween) {
         Row(

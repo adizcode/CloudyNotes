@@ -33,6 +33,7 @@ fun NavGraphBuilder.authGraph(navController: NavController) {
                 navigateToRegister = { navigateToAuthScreen(AuthScreens.REGISTER.toString()) },
             )
         }
+
         composable(AuthScreens.REGISTER.toString()) {
             Register(
                 navigateToHome = navigateToMainGraph,
