@@ -32,7 +32,7 @@ sealed class MainSubScreens(val route: String, val label: String, val imageVecto
 fun MainNavHost(modifier: Modifier = Modifier, navController: NavHostController) {
     NavHost(modifier = modifier,
         navController = navController,
-        startDestination = MainSubScreens.Profile.route) {
+        startDestination = MainSubScreens.Home.route) {
         composable(MainSubScreens.Home.route) {
             HomeUi()
         }

@@ -5,15 +5,18 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
+import androidx.compose.material.Card
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
@@ -26,6 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -33,6 +37,7 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import coil.compose.AsyncImage
 import com.github.adizcode.notes2cloud9.TopBar
 import com.github.adizcode.notes2cloud9.navigation.MainNavHost
 import com.github.adizcode.notes2cloud9.navigation.MainSubScreens
@@ -91,7 +96,33 @@ fun MainScaffold() {
 
 @Composable
 fun HomeUi() {
-
+    LazyColumn {
+        item {
+            MainSubScreenHeading("Fresh study material: ")
+        }
+        items(10) {
+            Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+                Spacer(modifier = Modifier.height(20.dp))
+                Card(modifier = Modifier.size(250.dp)) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        AsyncImage(
+                            model = "https://images.squarespace-cdn.com/content/v1/51b3dc8ee4b051b96ceb10de/1534799078116-K7SMXJF3P0NT2W92SO6T/image-asset.jpeg",
+                            contentDescription = null,
+                            modifier = Modifier
+                                .weight(0.7f),
+                            contentScale = ContentScale.Crop,
+                        )
+                        Row(modifier = Modifier.weight(0.3f),
+                            verticalAlignment = Alignment.CenterVertically) {
+                            Text("Descriptive File Name",
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 18.sp)
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 @Composable
@@ -109,8 +140,7 @@ fun MyNotes(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier.fillMaxSize(),
     ) {
-        Spacer(modifier = Modifier.height(10.dp))
-        Text("Your notes:", fontSize = 32.sp, fontWeight = FontWeight.ExtraBold)
+        MainSubScreenHeading("Your notes:")
 
         LazyColumn(verticalArrangement = Arrangement.Absolute.spacedBy(20.dp)) {
             item {
@@ -133,6 +163,14 @@ fun MyNotes(modifier: Modifier = Modifier) {
             }
         }
     }
+}
+
+@Composable
+fun MainSubScreenHeading(text: String) {
+    Text(text,
+        fontSize = 32.sp,
+        fontWeight = FontWeight.ExtraBold,
+        modifier = Modifier.padding(top = 10.dp))
 }
 
 @Composable
