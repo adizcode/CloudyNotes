@@ -4,8 +4,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,7 +17,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
@@ -87,8 +92,44 @@ fun Home() {
     ) {
         TopBar()
         Spacer(modifier = Modifier.height(20.dp))
-        Text("Notes for you:", fontSize = 28.sp, fontWeight = FontWeight.ExtraBold)
+        Text("Your notes:", fontSize = 28.sp, fontWeight = FontWeight.ExtraBold)
 
+        LazyColumn(verticalArrangement = spacedBy(20.dp)) {
+            item {
+                Text("Public Notes", fontWeight = FontWeight.Bold, fontSize = 22.sp)
+            }
+            items(3) {
+                if (it > 0) {
+                    Spacer(Modifier.height(10.dp))
+                }
+                NoteBox(num = it)
+            }
+            item {
+                Text("Private Notes", fontWeight = FontWeight.Bold, fontSize = 22.sp)
+            }
+            items(3) {
+                if (it > 0) {
+                    Spacer(Modifier.height(10.dp))
+                }
+                NoteBox(num = it)
+            }
+        }
+    }
+}
+
+@Composable
+fun NoteBox(modifier: Modifier = Modifier, num: Int) {
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(64.dp)
+            .clip(RoundedCornerShape(15.dp))
+            .border(1.dp, Color.LightGray, RoundedCornerShape(15.dp))
+            .clickable { }
+            .padding(16.dp),
+        contentAlignment = Alignment.Center,
+    ) {
+        Text("Note $num")
     }
 }
 
