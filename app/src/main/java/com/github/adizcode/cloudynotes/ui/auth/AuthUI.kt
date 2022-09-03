@@ -1,4 +1,4 @@
-package com.github.adizcode.notes2cloud9.ui.auth
+package com.github.adizcode.cloudynotes.ui.auth
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -21,8 +21,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.github.adizcode.notes2cloud9.ui.theme.Background
-import com.github.adizcode.notes2cloud9.ui.theme.TextBlack
+import com.github.adizcode.cloudynotes.ui.theme.Background
+import com.github.adizcode.cloudynotes.ui.theme.TextBlack
 
 @Composable
 fun Login(navigateToHome: () -> Unit, navigateToRegister: () -> Unit) {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.github.adizcode.notes2cloud9">
+    package="com.github.adizcode.cloudynotes">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -13,13 +13,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Notes2Cloud9"
+        android:theme="@style/Theme.CloudyNotes"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name="com.github.adizcode.cloudynotes.MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.Notes2Cloud9">
+            android:theme="@style/Theme.CloudyNotes">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

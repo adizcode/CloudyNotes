@@ -1,4 +1,4 @@
-package com.github.adizcode.notes2cloud9
+package com.github.adizcode.cloudynotes
 
 import org.junit.Test
 

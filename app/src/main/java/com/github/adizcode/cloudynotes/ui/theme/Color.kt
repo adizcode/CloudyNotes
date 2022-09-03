@@ -1,4 +1,4 @@
-package com.github.adizcode.notes2cloud9.ui.theme
+package com.github.adizcode.cloudynotes.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

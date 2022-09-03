@@ -1,4 +1,4 @@
-package com.github.adizcode.notes2cloud9.ui.main
+package com.github.adizcode.cloudynotes.ui.main
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -55,11 +55,11 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
-import com.github.adizcode.notes2cloud9.TopBar
-import com.github.adizcode.notes2cloud9.navigation.MainNavHost
-import com.github.adizcode.notes2cloud9.navigation.MainSubScreens
-import com.github.adizcode.notes2cloud9.ui.theme.Background
-import com.github.adizcode.notes2cloud9.ui.theme.SecondaryBackground
+import com.github.adizcode.cloudynotes.TopBar
+import com.github.adizcode.cloudynotes.navigation.MainNavHost
+import com.github.adizcode.cloudynotes.navigation.MainSubScreens
+import com.github.adizcode.cloudynotes.ui.theme.Background
+import com.github.adizcode.cloudynotes.ui.theme.SecondaryBackground
 import kotlinx.coroutines.launch
 import java.util.*
 

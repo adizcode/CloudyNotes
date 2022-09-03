@@ -7,7 +7,7 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.github.adizcode.notes2cloud9"
+        applicationId "com.github.adizcode.cloudynotes"
         minSdk 24
         targetSdk 33
         versionCode 1

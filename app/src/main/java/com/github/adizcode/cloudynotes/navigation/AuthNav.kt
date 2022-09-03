@@ -1,11 +1,11 @@
-package com.github.adizcode.notes2cloud9.navigation
+package com.github.adizcode.cloudynotes.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
-import com.github.adizcode.notes2cloud9.ui.auth.Login
-import com.github.adizcode.notes2cloud9.ui.auth.Register
+import com.github.adizcode.cloudynotes.ui.auth.Login
+import com.github.adizcode.cloudynotes.ui.auth.Register
 
 enum class AuthScreens {
     LOGIN, REGISTER
