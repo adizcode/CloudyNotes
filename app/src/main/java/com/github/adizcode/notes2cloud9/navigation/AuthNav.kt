@@ -12,11 +12,12 @@ enum class AuthScreens {
 }
 
 fun NavGraphBuilder.authGraph(navController: NavController) {
-    navigation(startDestination = AuthScreens.LOGIN.toString(), route = NavGraphs.AUTH.route) {
+    navigation(startDestination = AuthScreens.LOGIN.toString(),
+        route = TopLevelNavRoutes.AUTH.route) {
 
         val navigateToMainGraph = {
-            navController.navigate(NavGraphs.MAIN.route) {
-                popUpTo(NavGraphs.AUTH.route) { inclusive = true }
+            navController.navigate(TopLevelNavRoutes.MAIN.route) {
+                popUpTo(TopLevelNavRoutes.AUTH.route) { inclusive = true }
             }
         }
 

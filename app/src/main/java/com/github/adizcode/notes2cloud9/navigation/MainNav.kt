@@ -5,27 +5,27 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.github.adizcode.notes2cloud9.ui.main.HomeUi
-import com.github.adizcode.notes2cloud9.ui.main.MyNotes
+import com.github.adizcode.notes2cloud9.ui.main.ProfileUi
 import com.github.adizcode.notes2cloud9.ui.main.SearchUi
 
-sealed class MainScreens(val route: String, val label: String) {
-    object Home : MainScreens("home", "Home")
-    object Search : MainScreens("search", "Search")
-    object Profile : MainScreens("profile", "Profile")
+sealed class MainSubScreens(val route: String, val label: String) {
+    object Home : MainSubScreens("home", "Home")
+    object Search : MainSubScreens("search", "Search")
+    object Profile : MainSubScreens("profile", "Profile")
 }
 
 fun NavGraphBuilder.mainGraph(navController: NavController) {
 
-    navigation(startDestination = MainScreens.Profile.route, route =  NavGraphs.MAIN.route) {
-        composable(MainScreens.Home.route) {
+    navigation(startDestination = MainSubScreens.Profile.route,
+        route = TopLevelNavRoutes.MAIN.route) {
+        composable(MainSubScreens.Home.route) {
             HomeUi()
         }
-        composable(MainScreens.Search.route) {
+        composable(MainSubScreens.Search.route) {
             SearchUi()
         }
-        composable(MainScreens.Profile.route) {
-            // ProfileUi()
-            MyNotes()
+        composable(MainSubScreens.Profile.route) {
+            ProfileUi()
         }
     }
 }

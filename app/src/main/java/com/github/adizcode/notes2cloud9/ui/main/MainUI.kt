@@ -30,6 +30,24 @@ import com.github.adizcode.notes2cloud9.TopBar
 import com.github.adizcode.notes2cloud9.ui.theme.SecondaryBackground
 
 @Composable
+fun MainScaffold() {
+    Scaffold(modifier = Modifier
+        .background(SecondaryBackground)
+        .padding(horizontal = 16.dp, vertical = 32.dp),
+        backgroundColor = SecondaryBackground,
+        topBar = {
+            TopBar()
+        },
+        floatingActionButton = {
+            FloatingActionButton(onClick = {}) {
+                Icon(imageVector = Icons.Filled.FileUpload, contentDescription = null)
+            }
+        }) {
+        MyNotes(modifier = Modifier.padding(it))
+    }
+}
+
+@Composable
 fun HomeUi() {
 
 }
@@ -45,47 +63,31 @@ fun ProfileUi() {
 }
 
 @Composable
-fun MyNotes() {
+fun MyNotes(modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier.fillMaxSize(),
+    ) {
+        Spacer(modifier = Modifier.height(10.dp))
+        Text("Your notes:", fontSize = 32.sp, fontWeight = FontWeight.ExtraBold)
 
-    Scaffold(modifier = Modifier
-        .background(SecondaryBackground)
-        .padding(horizontal = 16.dp, vertical = 32.dp),
-        backgroundColor = SecondaryBackground,
-        topBar = {
-            TopBar()
-        },
-        floatingActionButton = {
-            FloatingActionButton(onClick = {}) {
-                Icon(imageVector = Icons.Filled.FileUpload, contentDescription = null)
+        LazyColumn(verticalArrangement = Arrangement.Absolute.spacedBy(20.dp)) {
+            item {
+                Text("Public Notes", fontWeight = FontWeight.Bold, fontSize = 22.sp)
             }
-        }) {
-        Column(
-            Modifier
-                .padding(it)
-                .fillMaxSize(),
-        ) {
-            Spacer(modifier = Modifier.height(10.dp))
-            Text("Your notes:", fontSize = 32.sp, fontWeight = FontWeight.ExtraBold)
-
-            LazyColumn(verticalArrangement = Arrangement.Absolute.spacedBy(20.dp)) {
-                item {
-                    Text("Public Notes", fontWeight = FontWeight.Bold, fontSize = 22.sp)
+            items(4) {
+                if (it > 0) {
+                    Spacer(Modifier.height(10.dp))
                 }
-                items(4) {
-                    if (it > 0) {
-                        Spacer(Modifier.height(10.dp))
-                    }
-                    NoteBox(num = it)
+                NoteBox(num = it)
+            }
+            item {
+                Text("Private Notes", fontWeight = FontWeight.Bold, fontSize = 22.sp)
+            }
+            items(4) {
+                if (it > 0) {
+                    Spacer(Modifier.height(10.dp))
                 }
-                item {
-                    Text("Private Notes", fontWeight = FontWeight.Bold, fontSize = 22.sp)
-                }
-                items(4) {
-                    if (it > 0) {
-                        Spacer(Modifier.height(10.dp))
-                    }
-                    NoteBox(num = it)
-                }
+                NoteBox(num = it)
             }
         }
     }
