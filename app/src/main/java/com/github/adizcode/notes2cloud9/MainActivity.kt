@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
@@ -63,7 +64,7 @@ fun TopBar(modifier: Modifier = Modifier) {
                     .border(4.dp, Color.White, CircleShape)
                     .clickable { },
             )
-            Text("Hi, Kira!", fontSize = 18.sp)
+            Text("Hi, how are you?", fontSize = 18.sp, fontWeight = FontWeight.Medium)
         }
         IconButton(onClick = { /*TODO*/ }) {
             Icon(modifier = Modifier.size(28.dp),

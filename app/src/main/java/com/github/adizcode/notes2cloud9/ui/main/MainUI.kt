@@ -2,7 +2,6 @@ package com.github.adizcode.notes2cloud9.ui.main
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -82,7 +81,7 @@ fun MainScaffold() {
                 Modifier
                     .background(Color(0xFFD1EDBF))
                     .fillMaxWidth()
-                    .fillMaxHeight(0.9f)
+                    .fillMaxHeight(0.82f)
                     .padding(16.dp)
             ) {
 
@@ -167,7 +166,9 @@ fun HomeUi() {
         items(10) {
             Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
                 Spacer(modifier = Modifier.height(20.dp))
-                Card(modifier = Modifier.height(250.dp)) {
+                Card(modifier = Modifier
+                    .height(250.dp)
+                    .clickable { }) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         AsyncImage(
                             model = "https://images.squarespace-cdn.com/content/v1/51b3dc8ee4b051b96ceb10de/1534799078116-K7SMXJF3P0NT2W92SO6T/image-asset.jpeg",
@@ -190,18 +191,13 @@ fun HomeUi() {
 }
 
 @Composable
-fun ProfileUi() {
-    MyNotes()
-}
-
-@Composable
-fun MyNotes(modifier: Modifier = Modifier) {
+fun MyNotesUi(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier.fillMaxSize(),
     ) {
         MainSubScreenHeading("Your notes:")
 
-        LazyColumn(verticalArrangement = Arrangement.Absolute.spacedBy(20.dp)) {
+        LazyColumn(verticalArrangement = spacedBy(20.dp)) {
             item {
                 Text("Public Notes", fontWeight = FontWeight.Bold, fontSize = 22.sp)
             }
