@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "739978051528",
+    "project_id": "cloudy-notes-77a11",
+    "storage_bucket": "cloudy-notes-77a11.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:739978051528:android:069e342d9f3f375cd9cafd",
+        "android_client_info": {
+          "package_name": "com.github.adizcode.cloudynotes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "739978051528-6o2vurvo7rnlenivh4d0j3sunodmttg1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7oPlQhQlgtdeJb3aRokZ0_w-ZkGJprWs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "739978051528-6o2vurvo7rnlenivh4d0j3sunodmttg1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
