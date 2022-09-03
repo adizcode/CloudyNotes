@@ -6,6 +6,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.github.adizcode.cloudynotes.ui.main.MainScaffold
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 enum class TopLevelNavRoutes(val route: String) {
     AUTH("authGraph"), MAIN("mainScaffold")
@@ -13,7 +15,11 @@ enum class TopLevelNavRoutes(val route: String) {
 
 @Composable
 fun MyAppNavHost(navController: NavHostController = rememberNavController()) {
-    NavHost(navController = navController, startDestination = TopLevelNavRoutes.AUTH.route) {
+
+    val isUserSignedIn = Firebase.auth.currentUser != null
+    val startDestination = if (isUserSignedIn) TopLevelNavRoutes.MAIN else TopLevelNavRoutes.AUTH
+
+    NavHost(navController = navController, startDestination = startDestination.route) {
         authGraph(navController)
         composable(TopLevelNavRoutes.MAIN.route) { MainScaffold() }
     }
