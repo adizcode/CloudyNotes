@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
@@ -19,6 +20,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.github.adizcode.cloudynotes.ui.theme.Background
@@ -43,7 +47,10 @@ fun Login(navigateToHome: () -> Unit, navigateToRegister: () -> Unit) {
 
         Column(verticalArrangement = Arrangement.Absolute.spacedBy(20.dp)) {
             CustomTextField(value = uid, onValueChange = setUid, hint = "UID")
-            CustomTextField(value = password, onValueChange = setPassword, hint = "Password")
+            CustomTextField(isPassword = true,
+                value = password,
+                onValueChange = setPassword,
+                hint = "Password")
         }
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -89,7 +96,10 @@ fun Register(navigateToHome: () -> Unit, navigateToLogin: () -> Unit) {
 
         Column(verticalArrangement = Arrangement.Absolute.spacedBy(20.dp)) {
             CustomTextField(value = uid, onValueChange = setUid, hint = "UID")
-            CustomTextField(value = password, onValueChange = setPassword, hint = "Password")
+            CustomTextField(isPassword = true,
+                value = password,
+                onValueChange = setPassword,
+                hint = "Password")
         }
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -115,12 +125,19 @@ fun Register(navigateToHome: () -> Unit, navigateToLogin: () -> Unit) {
 }
 
 @Composable
-fun CustomTextField(value: String, hint: String, onValueChange: (String) -> Unit) {
+fun CustomTextField(
+    isPassword: Boolean = false,
+    value: String,
+    hint: String,
+    onValueChange: (String) -> Unit,
+) {
     Card {
         OutlinedTextField(
             value = value,
             onValueChange = onValueChange,
             placeholder = { Text(hint) },
+            visualTransformation = if (isPassword) PasswordVisualTransformation() else VisualTransformation.None,
+            keyboardOptions = KeyboardOptions(keyboardType = if (isPassword) KeyboardType.Password else KeyboardType.Text),
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 focusedBorderColor = Color.Transparent,
                 unfocusedBorderColor = Color.Transparent,
