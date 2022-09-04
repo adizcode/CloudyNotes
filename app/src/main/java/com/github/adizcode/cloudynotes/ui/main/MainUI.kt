@@ -1,5 +1,6 @@
 package com.github.adizcode.cloudynotes.ui.main
 
+import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
@@ -65,7 +66,7 @@ import java.util.*
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun MainScaffold() {
+fun MainScaffold(openFile: () -> Unit) {
     val bottomSheetScaffoldState = rememberBottomSheetScaffoldState(
         bottomSheetState = BottomSheetState(BottomSheetValue.Collapsed)
     )
@@ -104,7 +105,13 @@ fun MainScaffold() {
                 }
             },
             floatingActionButton = {
-                FloatingActionButton(onClick = {}, backgroundColor = Background) {
+                FloatingActionButton(onClick = {
+                    // 1. Open File Picker
+                    // 2. Get the selected file's URI
+                    // 3. Upload the file to Firebase Cloud Storage
+                    // 4. On success, store the file link in Firestore
+                    openFile()
+                }, backgroundColor = Background) {
                     Icon(imageVector = Icons.Filled.FileUpload, contentDescription = null)
                 }
             },

@@ -1,6 +1,9 @@
 package com.github.adizcode.cloudynotes
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -26,10 +29,19 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.app.ActivityCompat
 import coil.compose.AsyncImage
 import com.github.adizcode.cloudynotes.navigation.MyAppNavHost
 import com.github.adizcode.cloudynotes.ui.NotesViewModel
 import com.github.adizcode.cloudynotes.ui.theme.CloudyNotesTheme
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.component1
+import com.google.firebase.storage.ktx.component2
+import com.google.firebase.storage.ktx.storage
+
+
+// Request code for selecting a PDF document.
+const val PICK_PDF_FILE = 2
 
 const val EMAIL_POSTFIX = "@cumail.in"
 
@@ -43,10 +55,55 @@ class MainActivity : ComponentActivity() {
 
             CloudyNotesTheme {
 
-                MyAppNavHost(viewModel = viewModel)
+                MyAppNavHost(viewModel = viewModel, openFile = { openFile() })
 
             }
         }
+    }
+
+    override fun onActivityResult(
+        requestCode: Int, resultCode: Int, resultData: Intent?,
+    ) {
+        super.onActivityResult(requestCode, resultCode, resultData)
+        if (requestCode == PICK_PDF_FILE
+
+
+            && resultCode == Activity.RESULT_OK
+        ) {
+            // The result data contains a URI for the document or directory that
+            // the user selected.
+            resultData?.data?.also { uri ->
+
+                // Perform operations on the document using its URI.
+                val storageRef = Firebase.storage.reference
+                val uploadTask = storageRef.child("images/${uri.lastPathSegment}").putFile(uri)
+
+                uploadTask.addOnProgressListener { (bytesTransferred, totalByteCount) ->
+                    val progress = (100.0 * bytesTransferred) / totalByteCount
+                    Log.d("Storage", "Upload is $progress% done")
+                }.addOnPausedListener {
+                    Log.d("Storage", "Upload is paused")
+                }.addOnFailureListener {
+                    // Handle unsuccessful uploads
+                }.addOnSuccessListener {
+                    // Handle successful uploads on complete
+                    // TODO: Store reference in Firestore
+                }
+            }
+        }
+    }
+
+    private fun openFile() {
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+            addCategory(Intent.CATEGORY_OPENABLE)
+            type = "application/pdf"
+
+            // Optionally, specify a URI for the file that should appear in the
+            // system file picker when it loads.
+//            putExtra(DocumentsContract.EXTRA_INITIAL_URI, pickerInitialUri)
+        }
+
+        ActivityCompat.startActivityForResult(this, intent, PICK_PDF_FILE, null)
     }
 }
 

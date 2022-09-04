@@ -1,5 +1,6 @@
 package com.github.adizcode.cloudynotes.navigation
 
+import android.net.Uri
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -15,13 +16,17 @@ enum class TopLevelNavRoutes(val route: String) {
 }
 
 @Composable
-fun MyAppNavHost(navController: NavHostController = rememberNavController(), viewModel: NotesViewModel) {
+fun MyAppNavHost(
+    navController: NavHostController = rememberNavController(),
+    viewModel: NotesViewModel,
+    openFile: () -> Unit,
+) {
 
     val isUserSignedIn = Firebase.auth.currentUser != null
     val startDestination = if (isUserSignedIn) TopLevelNavRoutes.MAIN else TopLevelNavRoutes.AUTH
 
     NavHost(navController = navController, startDestination = startDestination.route) {
         authGraph(navController, viewModel)
-        composable(TopLevelNavRoutes.MAIN.route) { MainScaffold() }
+        composable(TopLevelNavRoutes.MAIN.route) { MainScaffold(openFile) }
     }
 }
