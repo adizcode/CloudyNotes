@@ -41,7 +41,7 @@ import com.google.firebase.storage.ktx.storage
 
 
 // Request code for selecting a PDF document.
-const val PICK_PDF_FILE = 2
+const val PICK_FILE = 2
 
 const val EMAIL_POSTFIX = "@cumail.in"
 
@@ -65,10 +65,7 @@ class MainActivity : ComponentActivity() {
         requestCode: Int, resultCode: Int, resultData: Intent?,
     ) {
         super.onActivityResult(requestCode, resultCode, resultData)
-        if (requestCode == PICK_PDF_FILE
-
-
-            && resultCode == Activity.RESULT_OK
+        if (requestCode == PICK_FILE && resultCode == Activity.RESULT_OK
         ) {
             // The result data contains a URI for the document or directory that
             // the user selected.
@@ -76,7 +73,7 @@ class MainActivity : ComponentActivity() {
 
                 // Perform operations on the document using its URI.
                 val storageRef = Firebase.storage.reference
-                val uploadTask = storageRef.child("images/${uri.lastPathSegment}").putFile(uri)
+                val uploadTask = storageRef.child("notes/${uri.lastPathSegment}").putFile(uri)
 
                 uploadTask.addOnProgressListener { (bytesTransferred, totalByteCount) ->
                     val progress = (100.0 * bytesTransferred) / totalByteCount
@@ -87,7 +84,10 @@ class MainActivity : ComponentActivity() {
                     // Handle unsuccessful uploads
                 }.addOnSuccessListener {
                     // Handle successful uploads on complete
-                    // TODO: Store reference in Firestore
+                    val ref = it.storage
+
+                    viewModel.storeUserNote(ref, "Test File For Note")
+
                 }
             }
         }
@@ -96,14 +96,10 @@ class MainActivity : ComponentActivity() {
     private fun openFile() {
         val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
             addCategory(Intent.CATEGORY_OPENABLE)
-            type = "application/pdf"
-
-            // Optionally, specify a URI for the file that should appear in the
-            // system file picker when it loads.
-//            putExtra(DocumentsContract.EXTRA_INITIAL_URI, pickerInitialUri)
+            type = "*/*"
         }
 
-        ActivityCompat.startActivityForResult(this, intent, PICK_PDF_FILE, null)
+        ActivityCompat.startActivityForResult(this, intent, PICK_FILE, null)
     }
 }
 
