@@ -3,6 +3,7 @@ package com.github.adizcode.cloudynotes
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -27,15 +28,22 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.github.adizcode.cloudynotes.navigation.MyAppNavHost
+import com.github.adizcode.cloudynotes.ui.NotesViewModel
 import com.github.adizcode.cloudynotes.ui.theme.CloudyNotesTheme
 
+const val EMAIL_POSTFIX = "@cumail.in"
+
 class MainActivity : ComponentActivity() {
+
+    private val viewModel: NotesViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+
             CloudyNotesTheme {
 
-                MyAppNavHost()
+                MyAppNavHost(viewModel = viewModel)
 
             }
         }

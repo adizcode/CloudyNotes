@@ -25,11 +25,12 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.github.adizcode.cloudynotes.ui.NotesViewModel
 import com.github.adizcode.cloudynotes.ui.theme.Background
 import com.github.adizcode.cloudynotes.ui.theme.TextBlack
 
 @Composable
-fun Login(navigateToHome: () -> Unit, navigateToRegister: () -> Unit) {
+fun Login(navigateToHome: () -> Unit, navigateToRegister: () -> Unit, viewModel: NotesViewModel) {
     val (uid, setUid) = remember { mutableStateOf("") }
     val (password, setPassword) = remember { mutableStateOf("") }
 
@@ -55,7 +56,7 @@ fun Login(navigateToHome: () -> Unit, navigateToRegister: () -> Unit) {
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        Button(onClick = navigateToHome,
+        Button(onClick = { viewModel.login(uid, password) { navigateToHome() } },
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = TextBlack,
                 contentColor = Background,
@@ -77,7 +78,7 @@ fun Login(navigateToHome: () -> Unit, navigateToRegister: () -> Unit) {
 }
 
 @Composable
-fun Register(navigateToHome: () -> Unit, navigateToLogin: () -> Unit) {
+fun Register(navigateToHome: () -> Unit, navigateToLogin: () -> Unit, viewModel: NotesViewModel) {
 
     val (uid, setUid) = remember { mutableStateOf("") }
     val (password, setPassword) = remember { mutableStateOf("") }
@@ -104,7 +105,7 @@ fun Register(navigateToHome: () -> Unit, navigateToLogin: () -> Unit) {
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        Button(onClick = navigateToHome,
+        Button(onClick = { viewModel.register(uid, password) { navigateToHome() } },
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = TextBlack,
                 contentColor = Background,
