@@ -35,6 +35,7 @@ fun MainNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController,
     openFile: () -> Unit,
+    uploadNote: () -> Unit,
 ) {
     NavHost(
         modifier = modifier,
@@ -48,7 +49,7 @@ fun MainNavHost(
             MyNotesUi()
         }
         composable(MainSubScreens.NoteUpload.route) {
-            NoteUploadUi(openFile = openFile)
+            NoteUploadUi(openFile = openFile, uploadNote = uploadNote)
         }
     }
 }

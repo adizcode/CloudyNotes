@@ -1,6 +1,8 @@
 package com.github.adizcode.cloudynotes.ui
 
 import android.app.Application
+import android.net.Uri
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import com.github.adizcode.cloudynotes.EMAIL_POSTFIX
@@ -12,12 +14,20 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.ktx.component1
+import com.google.firebase.storage.ktx.component2
+import com.google.firebase.storage.ktx.storage
 
 class NotesViewModel(application: Application) : AndroidViewModel(application) {
 
     private val auth: FirebaseAuth = Firebase.auth
     private val firestore: FirebaseFirestore = Firebase.firestore
+    private val storage: FirebaseStorage = Firebase.storage
+
+    var selectedNoteUri: Uri? = null
+        private set
 
     fun login(uid: String, password: String, navigateToHome: () -> Unit) {
 
@@ -56,7 +66,39 @@ class NotesViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun storeUserNote(ref: StorageReference, desc: String, isPublic: Boolean = false) {
+    fun updateSelectedNoteUri(noteUri: Uri) {
+        selectedNoteUri = noteUri
+        Toast.makeText(getApplication(), "Note selected!", Toast.LENGTH_SHORT).show()
+    }
+
+    fun uploadNoteToStorage() {
+        val noteUri = selectedNoteUri ?: return
+
+        // Perform operations on the document using its URI.
+        val storageRef = storage.reference
+        val uploadTask = storageRef.child("notes/${noteUri.lastPathSegment}").putFile(noteUri)
+
+        uploadTask.addOnProgressListener { (bytesTransferred, totalByteCount) ->
+            val progress = (100.0 * bytesTransferred) / totalByteCount
+            Log.d("Storage", "Upload is $progress% done")
+        }.addOnPausedListener {
+            Log.d("Storage", "Upload is paused")
+        }.addOnFailureListener {
+            // Handle unsuccessful uploads
+        }.addOnSuccessListener {
+            // Handle successful uploads on complete
+            val ref = it.storage
+
+            storeUserNoteInFirestore(ref, "Test File For Note")
+
+        }
+    }
+
+    private fun storeUserNoteInFirestore(
+        ref: StorageReference,
+        desc: String,
+        isPublic: Boolean = false,
+    ) {
 
 
         val currentUid = auth.currentUser?.uid

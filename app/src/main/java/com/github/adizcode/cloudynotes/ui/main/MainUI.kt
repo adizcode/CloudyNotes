@@ -70,7 +70,7 @@ import java.util.*
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun MainScaffold(openFile: () -> Unit) {
+fun MainScaffold(openFile: () -> Unit, uploadNote: () -> Unit) {
     val bottomSheetScaffoldState = rememberBottomSheetScaffoldState(
         bottomSheetState = BottomSheetState(BottomSheetValue.Collapsed)
     )
@@ -172,6 +172,7 @@ fun MainScaffold(openFile: () -> Unit) {
                     .padding(horizontal = 16.dp),
                 navController = navController,
                 openFile = openFile,
+                uploadNote = uploadNote,
             )
         }
     }
@@ -244,14 +245,14 @@ fun MyNotesUi(modifier: Modifier = Modifier) {
 @Composable
 fun PreviewNoteUploadUi() {
     CloudyNotesTheme {
-        NoteUploadUi {
+        NoteUploadUi(openFile = {}) {
 
         }
     }
 }
 
 @Composable
-fun NoteUploadUi(modifier: Modifier = Modifier, openFile: () -> Unit) {
+fun NoteUploadUi(modifier: Modifier = Modifier, openFile: () -> Unit, uploadNote: () -> Unit) {
     Column(
         modifier = modifier.fillMaxSize(),
         verticalArrangement = spacedBy(40.dp)
@@ -279,7 +280,7 @@ fun NoteUploadUi(modifier: Modifier = Modifier, openFile: () -> Unit) {
             OutlinedButton(modifier = Modifier.weight(0.5f), onClick = { /*TODO*/ }) {
                 Text("Back")
             }
-            Button(modifier = Modifier.weight(0.5f), onClick = { /*TODO*/ }) {
+            Button(modifier = Modifier.weight(0.5f), onClick = uploadNote) {
                 Text("Add Note")
             }
         }

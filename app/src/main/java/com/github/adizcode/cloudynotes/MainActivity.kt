@@ -3,7 +3,6 @@ package com.github.adizcode.cloudynotes
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -34,10 +33,6 @@ import coil.compose.AsyncImage
 import com.github.adizcode.cloudynotes.navigation.MyAppNavHost
 import com.github.adizcode.cloudynotes.ui.NotesViewModel
 import com.github.adizcode.cloudynotes.ui.theme.CloudyNotesTheme
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.ktx.component1
-import com.google.firebase.storage.ktx.component2
-import com.google.firebase.storage.ktx.storage
 
 
 // Request code for selecting a PDF document.
@@ -55,7 +50,7 @@ class MainActivity : ComponentActivity() {
 
             CloudyNotesTheme {
 
-                MyAppNavHost(viewModel = viewModel, openFile = { openFile() })
+                MyAppNavHost(viewModel = viewModel, openFile = { openFile() }, uploadNote = {viewModel.uploadNoteToStorage()})
 
             }
         }
@@ -69,27 +64,7 @@ class MainActivity : ComponentActivity() {
         ) {
             // The result data contains a URI for the document or directory that
             // the user selected.
-            resultData?.data?.also { uri ->
-
-                // Perform operations on the document using its URI.
-                val storageRef = Firebase.storage.reference
-                val uploadTask = storageRef.child("notes/${uri.lastPathSegment}").putFile(uri)
-
-                uploadTask.addOnProgressListener { (bytesTransferred, totalByteCount) ->
-                    val progress = (100.0 * bytesTransferred) / totalByteCount
-                    Log.d("Storage", "Upload is $progress% done")
-                }.addOnPausedListener {
-                    Log.d("Storage", "Upload is paused")
-                }.addOnFailureListener {
-                    // Handle unsuccessful uploads
-                }.addOnSuccessListener {
-                    // Handle successful uploads on complete
-                    val ref = it.storage
-
-                    viewModel.storeUserNote(ref, "Test File For Note")
-
-                }
-            }
+            resultData?.data?.also(viewModel::updateSelectedNoteUri)
         }
     }
 
