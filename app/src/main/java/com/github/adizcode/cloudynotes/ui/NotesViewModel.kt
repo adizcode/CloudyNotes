@@ -4,6 +4,7 @@ import android.app.Application
 import android.net.Uri
 import android.util.Log
 import android.widget.Toast
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.AndroidViewModel
 import com.github.adizcode.cloudynotes.EMAIL_POSTFIX
 import com.github.adizcode.cloudynotes.FirebaseCollections.USERS
@@ -25,6 +26,8 @@ class NotesViewModel(application: Application) : AndroidViewModel(application) {
     private val auth: FirebaseAuth = Firebase.auth
     private val firestore: FirebaseFirestore = Firebase.firestore
     private val storage: FirebaseStorage = Firebase.storage
+
+    val noteDescState = mutableStateOf("")
 
     var selectedNoteUri: Uri? = null
         private set
@@ -89,7 +92,7 @@ class NotesViewModel(application: Application) : AndroidViewModel(application) {
             // Handle successful uploads on complete
             val ref = it.storage
 
-            storeUserNoteInFirestore(ref, "Test File For Note")
+            storeUserNoteInFirestore(ref, noteDescState.value)
 
         }
     }

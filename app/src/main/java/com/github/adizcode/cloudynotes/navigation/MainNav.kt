@@ -8,9 +8,11 @@ import androidx.compose.material.icons.filled.Upload
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.github.adizcode.cloudynotes.ui.NotesViewModel
 import com.github.adizcode.cloudynotes.ui.main.HomeUi
 import com.github.adizcode.cloudynotes.ui.main.MyNotesUi
 import com.github.adizcode.cloudynotes.ui.main.NoteUploadUi
@@ -35,7 +37,7 @@ fun MainNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController,
     openFile: () -> Unit,
-    uploadNote: () -> Unit,
+    viewModel: NotesViewModel,
 ) {
     NavHost(
         modifier = modifier,
@@ -49,7 +51,7 @@ fun MainNavHost(
             MyNotesUi()
         }
         composable(MainSubScreens.NoteUpload.route) {
-            NoteUploadUi(openFile = openFile, uploadNote = uploadNote)
+            NoteUploadUi(viewModel = viewModel, openFile = openFile)
         }
     }
 }

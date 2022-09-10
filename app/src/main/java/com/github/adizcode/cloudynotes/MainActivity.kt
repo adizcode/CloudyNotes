@@ -50,7 +50,7 @@ class MainActivity : ComponentActivity() {
 
             CloudyNotesTheme {
 
-                MyAppNavHost(viewModel = viewModel, openFile = { openFile() }, uploadNote = {viewModel.uploadNoteToStorage()})
+                MyAppNavHost(viewModel = viewModel) { openFile() }
 
             }
         }

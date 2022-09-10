@@ -19,7 +19,6 @@ fun MyAppNavHost(
     navController: NavHostController = rememberNavController(),
     viewModel: NotesViewModel,
     openFile: () -> Unit,
-    uploadNote: () -> Unit
 ) {
 
     val isUserSignedIn = Firebase.auth.currentUser != null
@@ -27,6 +26,6 @@ fun MyAppNavHost(
 
     NavHost(navController = navController, startDestination = startDestination.route) {
         authGraph(navController, viewModel)
-        composable(TopLevelNavRoutes.MAIN.route) { MainScaffold(openFile, uploadNote) }
+        composable(TopLevelNavRoutes.MAIN.route) { MainScaffold(viewModel, openFile) }
     }
 }

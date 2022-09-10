@@ -51,7 +51,6 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -61,16 +60,16 @@ import coil.compose.AsyncImage
 import com.github.adizcode.cloudynotes.TopBar
 import com.github.adizcode.cloudynotes.navigation.MainNavHost
 import com.github.adizcode.cloudynotes.navigation.MainSubScreens
+import com.github.adizcode.cloudynotes.ui.NotesViewModel
 import com.github.adizcode.cloudynotes.ui.auth.CustomTextField
 import com.github.adizcode.cloudynotes.ui.theme.Background
-import com.github.adizcode.cloudynotes.ui.theme.CloudyNotesTheme
 import com.github.adizcode.cloudynotes.ui.theme.SecondaryBackground
 import kotlinx.coroutines.launch
 import java.util.*
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun MainScaffold(openFile: () -> Unit, uploadNote: () -> Unit) {
+fun MainScaffold(viewModel: NotesViewModel, openFile: () -> Unit) {
     val bottomSheetScaffoldState = rememberBottomSheetScaffoldState(
         bottomSheetState = BottomSheetState(BottomSheetValue.Collapsed)
     )
@@ -171,8 +170,8 @@ fun MainScaffold(openFile: () -> Unit, uploadNote: () -> Unit) {
                     .padding(it)
                     .padding(horizontal = 16.dp),
                 navController = navController,
+                viewModel = viewModel,
                 openFile = openFile,
-                uploadNote = uploadNote,
             )
         }
     }
@@ -241,18 +240,8 @@ fun MyNotesUi(modifier: Modifier = Modifier) {
     }
 }
 
-@Preview(showSystemUi = true)
 @Composable
-fun PreviewNoteUploadUi() {
-    CloudyNotesTheme {
-        NoteUploadUi(openFile = {}) {
-
-        }
-    }
-}
-
-@Composable
-fun NoteUploadUi(modifier: Modifier = Modifier, openFile: () -> Unit, uploadNote: () -> Unit) {
+fun NoteUploadUi(modifier: Modifier = Modifier, viewModel: NotesViewModel, openFile: () -> Unit) {
     Column(
         modifier = modifier.fillMaxSize(),
         verticalArrangement = spacedBy(40.dp)
@@ -260,13 +249,12 @@ fun NoteUploadUi(modifier: Modifier = Modifier, openFile: () -> Unit, uploadNote
         MainSubScreenHeading("Add a new note:")
 
         Column {
-            val (desc, setDesc) = remember { mutableStateOf("") }
 
             CustomTextField(
                 modifier = Modifier.fillMaxWidth(),
-                value = desc,
+                value = viewModel.noteDescState.value,
                 hint = "Give your note a descriptive name...",
-                onValueChange = setDesc,
+                onValueChange = { viewModel.noteDescState.value = it },
             )
 
             Spacer(modifier = Modifier.height(15.dp))
@@ -280,7 +268,7 @@ fun NoteUploadUi(modifier: Modifier = Modifier, openFile: () -> Unit, uploadNote
             OutlinedButton(modifier = Modifier.weight(0.5f), onClick = { /*TODO*/ }) {
                 Text("Back")
             }
-            Button(modifier = Modifier.weight(0.5f), onClick = uploadNote) {
+            Button(modifier = Modifier.weight(0.5f), onClick = viewModel::uploadNoteToStorage) {
                 Text("Add Note")
             }
         }
