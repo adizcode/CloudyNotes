@@ -1,4 +1,4 @@
-package com.github.adizcode.cloudynotes.navigation
+package com.github.adizcode.cloudynotes.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
@@ -6,7 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.github.adizcode.cloudynotes.ui.NotesViewModel
-import com.github.adizcode.cloudynotes.ui.main.MainScaffold
+import com.github.adizcode.cloudynotes.ui.view.main.MainScaffold
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 

@@ -1,12 +1,12 @@
-package com.github.adizcode.cloudynotes.navigation
+package com.github.adizcode.cloudynotes.ui.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
-import com.github.adizcode.cloudynotes.ui.auth.Login
+import com.github.adizcode.cloudynotes.ui.view.auth.LoginScreen
 import com.github.adizcode.cloudynotes.ui.NotesViewModel
-import com.github.adizcode.cloudynotes.ui.auth.Register
+import com.github.adizcode.cloudynotes.ui.view.auth.RegisterScreen
 
 enum class AuthScreens {
     LOGIN, REGISTER
@@ -29,7 +29,7 @@ fun NavGraphBuilder.authGraph(navController: NavController, viewModel: NotesView
         }
 
         composable(AuthScreens.LOGIN.toString()) {
-            Login(
+            LoginScreen(
                 navigateToHome = navigateToMainGraph,
                 navigateToRegister = { navigateToAuthScreen(AuthScreens.REGISTER.toString()) },
                 viewModel = viewModel
@@ -37,7 +37,7 @@ fun NavGraphBuilder.authGraph(navController: NavController, viewModel: NotesView
         }
 
         composable(AuthScreens.REGISTER.toString()) {
-            Register(
+            RegisterScreen(
                 navigateToHome = navigateToMainGraph,
                 navigateToLogin = { navigateToAuthScreen(AuthScreens.LOGIN.toString()) },
                 viewModel = viewModel

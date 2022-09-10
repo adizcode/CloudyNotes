@@ -6,10 +6,9 @@ import android.util.Log
 import android.widget.Toast
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.AndroidViewModel
-import com.github.adizcode.cloudynotes.EMAIL_POSTFIX
-import com.github.adizcode.cloudynotes.FirebaseCollections.USERS
-import com.github.adizcode.cloudynotes.FirebaseCollections.USER_NOTES
-import com.github.adizcode.cloudynotes.UserNote
+import com.github.adizcode.cloudynotes.utils.FirebaseCollections.USERS
+import com.github.adizcode.cloudynotes.utils.FirebaseCollections.USER_NOTES
+import com.github.adizcode.cloudynotes.data.model.UserNote
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -29,8 +28,7 @@ class NotesViewModel(application: Application) : AndroidViewModel(application) {
 
     val noteDescState = mutableStateOf("")
 
-    var selectedNoteUri: Uri? = null
-        private set
+    private var selectedNoteUri: Uri? = null
 
     fun login(uid: String, password: String, navigateToHome: () -> Unit) {
 

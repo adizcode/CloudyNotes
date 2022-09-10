@@ -1,4 +1,4 @@
-package com.github.adizcode.cloudynotes
+package com.github.adizcode.cloudynotes.utils
 
 object FirebaseCollections {
     const val USERS = "users"

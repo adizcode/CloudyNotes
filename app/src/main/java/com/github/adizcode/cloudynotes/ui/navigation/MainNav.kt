@@ -1,4 +1,4 @@
-package com.github.adizcode.cloudynotes.navigation
+package com.github.adizcode.cloudynotes.ui.navigation
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -8,14 +8,13 @@ import androidx.compose.material.icons.filled.Upload
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.github.adizcode.cloudynotes.ui.NotesViewModel
-import com.github.adizcode.cloudynotes.ui.main.HomeUi
-import com.github.adizcode.cloudynotes.ui.main.MyNotesUi
-import com.github.adizcode.cloudynotes.ui.main.NoteUploadUi
+import com.github.adizcode.cloudynotes.ui.view.main.subscreens.HomeSubScreen
+import com.github.adizcode.cloudynotes.ui.view.main.subscreens.MyNotesSubScreen
+import com.github.adizcode.cloudynotes.ui.view.main.subscreens.NoteUploadSubScreen
 
 sealed class MainSubScreens(val route: String, val label: String, val imageVector: ImageVector) {
     object Home : MainSubScreens("home", "Home", Icons.Filled.Home)
@@ -45,13 +44,13 @@ fun MainNavHost(
         startDestination = MainSubScreens.Home.route,
     ) {
         composable(MainSubScreens.Home.route) {
-            HomeUi()
+            HomeSubScreen()
         }
         composable(MainSubScreens.MyNotes.route) {
-            MyNotesUi()
+            MyNotesSubScreen()
         }
         composable(MainSubScreens.NoteUpload.route) {
-            NoteUploadUi(viewModel = viewModel, openFile = openFile)
+            NoteUploadSubScreen(viewModel = viewModel, openFile = openFile)
         }
     }
 }

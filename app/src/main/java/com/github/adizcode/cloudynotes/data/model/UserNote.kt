@@ -1,4 +1,4 @@
-package com.github.adizcode.cloudynotes
+package com.github.adizcode.cloudynotes.data.model
 
 import android.net.Uri
 

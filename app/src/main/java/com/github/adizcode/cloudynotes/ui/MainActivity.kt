@@ -1,4 +1,4 @@
-package com.github.adizcode.cloudynotes
+package com.github.adizcode.cloudynotes.ui
 
 import android.app.Activity
 import android.content.Intent
@@ -30,8 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.app.ActivityCompat
 import coil.compose.AsyncImage
-import com.github.adizcode.cloudynotes.navigation.MyAppNavHost
-import com.github.adizcode.cloudynotes.ui.NotesViewModel
+import com.github.adizcode.cloudynotes.ui.navigation.MyAppNavHost
 import com.github.adizcode.cloudynotes.ui.theme.CloudyNotesTheme
 
 
