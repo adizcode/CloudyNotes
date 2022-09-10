@@ -68,7 +68,7 @@ class NotesViewModel(application: Application) : AndroidViewModel(application) {
                 userNotes.add(
                     UserNote(
                         desc = desc,
-                        downloadUri = it,
+                        downloadUrl = it,
                         isPublic = isPublic,
                     ),
                 ).addOnSuccessListener {

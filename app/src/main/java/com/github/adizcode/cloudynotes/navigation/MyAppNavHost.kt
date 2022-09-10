@@ -1,6 +1,5 @@
 package com.github.adizcode.cloudynotes.navigation
 
-import android.net.Uri
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost

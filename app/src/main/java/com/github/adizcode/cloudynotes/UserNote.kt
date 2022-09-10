@@ -4,6 +4,6 @@ import android.net.Uri
 
 data class UserNote(
     val desc: String,
-    val downloadUri: Uri,
+    val downloadUrl: Uri,
     val isPublic: Boolean,
 )
