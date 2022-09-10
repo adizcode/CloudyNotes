@@ -127,12 +127,13 @@ fun Register(navigateToHome: () -> Unit, navigateToLogin: () -> Unit, viewModel:
 
 @Composable
 fun CustomTextField(
+    modifier: Modifier = Modifier,
     isPassword: Boolean = false,
     value: String,
     hint: String,
     onValueChange: (String) -> Unit,
 ) {
-    Card {
+    Card(modifier = modifier) {
         OutlinedTextField(
             value = value,
             onValueChange = onValueChange,

@@ -21,20 +21,22 @@ import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.BottomSheetScaffold
 import androidx.compose.material.BottomSheetState
 import androidx.compose.material.BottomSheetValue
+import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.material.TextButton
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.FileUpload
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Upload
 import androidx.compose.material.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -49,6 +51,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -60,6 +63,7 @@ import com.github.adizcode.cloudynotes.navigation.MainNavHost
 import com.github.adizcode.cloudynotes.navigation.MainSubScreens
 import com.github.adizcode.cloudynotes.ui.auth.CustomTextField
 import com.github.adizcode.cloudynotes.ui.theme.Background
+import com.github.adizcode.cloudynotes.ui.theme.CloudyNotesTheme
 import com.github.adizcode.cloudynotes.ui.theme.SecondaryBackground
 import kotlinx.coroutines.launch
 import java.util.*
@@ -236,26 +240,48 @@ fun MyNotesUi(modifier: Modifier = Modifier) {
     }
 }
 
+@Preview(showSystemUi = true)
 @Composable
-fun NoteUploadUi(openFile: () -> Unit) {
+fun PreviewNoteUploadUi() {
+    CloudyNotesTheme {
+        NoteUploadUi {
+
+        }
+    }
+}
+
+@Composable
+fun NoteUploadUi(modifier: Modifier = Modifier, openFile: () -> Unit) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
+        verticalArrangement = spacedBy(40.dp)
     ) {
-        val (desc, setDesc) = remember { mutableStateOf("") }
         MainSubScreenHeading("Add a new note:")
 
-        CustomTextField(
-            value = desc,
-            hint = "Give your note a descriptive name...",
-            onValueChange = setDesc,
-        )
+        Column {
+            val (desc, setDesc) = remember { mutableStateOf("") }
 
-        TextButton(onClick = openFile) {
-            Text("Choose File")
+            CustomTextField(
+                modifier = Modifier.fillMaxWidth(),
+                value = desc,
+                hint = "Give your note a descriptive name...",
+                onValueChange = setDesc,
+            )
+
+            Spacer(modifier = Modifier.height(15.dp))
+
+            Button(modifier = Modifier.fillMaxWidth(), onClick = openFile) {
+                Icon(Icons.Filled.Upload, null)
+            }
         }
 
-        IconButton(onClick = { /*TODO*/ }) {
-            Icon(imageVector = Icons.Filled.FileUpload, contentDescription = "Upload chosen file")
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = spacedBy(20.dp)) {
+            OutlinedButton(modifier = Modifier.weight(0.5f), onClick = { /*TODO*/ }) {
+                Text("Back")
+            }
+            Button(modifier = Modifier.weight(0.5f), onClick = { /*TODO*/ }) {
+                Text("Add Note")
+            }
         }
     }
 }

@@ -31,10 +31,16 @@ sealed class MainSubScreens(val route: String, val label: String, val imageVecto
 }
 
 @Composable
-fun MainNavHost(modifier: Modifier = Modifier, navController: NavHostController, openFile: () -> Unit) {
-    NavHost(modifier = modifier,
+fun MainNavHost(
+    modifier: Modifier = Modifier,
+    navController: NavHostController,
+    openFile: () -> Unit,
+) {
+    NavHost(
+        modifier = modifier,
         navController = navController,
-        startDestination = MainSubScreens.Home.route) {
+        startDestination = MainSubScreens.Home.route,
+    ) {
         composable(MainSubScreens.Home.route) {
             HomeUi()
         }
@@ -42,7 +48,7 @@ fun MainNavHost(modifier: Modifier = Modifier, navController: NavHostController,
             MyNotesUi()
         }
         composable(MainSubScreens.NoteUpload.route) {
-            NoteUploadUi(openFile)
+            NoteUploadUi(openFile = openFile)
         }
     }
 }
