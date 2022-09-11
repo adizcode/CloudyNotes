@@ -58,6 +58,11 @@ fun CoreSubScreenHeading(modifier: Modifier = Modifier, text: String) {
 }
 
 @Composable
+fun CoreSubScreenSubHeading(modifier: Modifier = Modifier, text: String) {
+    Text(modifier = modifier, text = text, fontSize = 22.sp, fontWeight = FontWeight.Bold)
+}
+
+@Composable
 fun NoteCard() {
     Card(
         modifier = Modifier

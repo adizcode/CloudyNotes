@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
@@ -33,9 +34,9 @@ fun NoteUploadSubScreen(
 ) {
     Column(
         modifier = modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Absolute.spacedBy(40.dp)
+        verticalArrangement = Arrangement.spacedBy(40.dp)
     ) {
-        CoreSubScreenHeading(text = "Add a new note:")
+        CoreSubScreenHeading(modifier = Modifier.padding(top = 20.dp), text = "Add a new note:")
 
         Column {
 

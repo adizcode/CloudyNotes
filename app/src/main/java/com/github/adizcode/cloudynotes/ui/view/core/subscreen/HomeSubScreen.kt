@@ -29,7 +29,7 @@ fun HomeSubScreen(modifier: Modifier = Modifier) {
                 text = "Fresh study material: ",
             )
         }
-        itemsIndexed(dummyList) { index: Int, _: Int ->
+        itemsIndexed(dummyList) { index, _ ->
             Column(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
