@@ -25,6 +25,7 @@ fun NoteUploadSubScreen(
     modifier: Modifier = Modifier,
     viewModel: NotesViewModel,
     openFile: () -> Unit,
+    goBack: () -> Unit,
 ) {
     Column(
         modifier = modifier.fillMaxSize(),
@@ -50,7 +51,7 @@ fun NoteUploadSubScreen(
 
         Row(modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Absolute.spacedBy(20.dp)) {
-            OutlinedButton(modifier = Modifier.weight(0.5f), onClick = { /*TODO*/ }) {
+            OutlinedButton(modifier = Modifier.weight(0.5f), onClick = goBack) {
                 Text("Back")
             }
             Button(modifier = Modifier.weight(0.5f), onClick = viewModel::uploadNoteToStorage) {
