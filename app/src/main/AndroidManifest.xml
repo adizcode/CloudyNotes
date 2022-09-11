@@ -16,7 +16,7 @@
         android:theme="@style/Theme.CloudyNotes"
         tools:targetApi="31">
         <activity
-            android:name="com.github.adizcode.cloudynotes.MainActivity"
+            android:name="com.github.adizcode.cloudynotes.ui.activity.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.CloudyNotes">
             <intent-filter>

@@ -1,4 +1,4 @@
-package com.github.adizcode.cloudynotes.ui.view.main.subscreens
+package com.github.adizcode.cloudynotes.ui.view.core.subscreen
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -17,13 +17,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.github.adizcode.cloudynotes.ui.view.common.MainSubScreenHeading
+import com.github.adizcode.cloudynotes.ui.view.common.CoreSubScreenHeading
 
 @Composable
 fun HomeSubScreen(modifier: Modifier = Modifier) {
     LazyColumn(modifier = modifier) {
         item {
-            MainSubScreenHeading("Fresh study material: ")
+            CoreSubScreenHeading("Fresh study material: ")
         }
         items(10) {
             Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {

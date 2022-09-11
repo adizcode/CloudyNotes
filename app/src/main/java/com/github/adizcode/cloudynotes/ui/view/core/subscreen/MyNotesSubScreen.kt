@@ -1,4 +1,4 @@
-package com.github.adizcode.cloudynotes.ui.view.main.subscreens
+package com.github.adizcode.cloudynotes.ui.view.core.subscreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -21,14 +21,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.github.adizcode.cloudynotes.ui.view.common.MainSubScreenHeading
+import com.github.adizcode.cloudynotes.ui.view.common.CoreSubScreenHeading
 
 @Composable
 fun MyNotesSubScreen(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier.fillMaxSize(),
     ) {
-        MainSubScreenHeading("Your notes:")
+        CoreSubScreenHeading("Your notes:")
 
         LazyColumn(verticalArrangement = Arrangement.Absolute.spacedBy(20.dp)) {
             item {

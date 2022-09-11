@@ -1,4 +1,4 @@
-package com.github.adizcode.cloudynotes.ui.view.main.subscreens
+package com.github.adizcode.cloudynotes.ui.view.core.subscreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

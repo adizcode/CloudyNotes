@@ -1,4 +1,4 @@
-package com.github.adizcode.cloudynotes.ui.view.main.subscreens
+package com.github.adizcode.cloudynotes.ui.view.core.subscreen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,9 +16,9 @@ import androidx.compose.material.icons.filled.Upload
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.github.adizcode.cloudynotes.ui.NotesViewModel
+import com.github.adizcode.cloudynotes.ui.view.common.CoreSubScreenHeading
 import com.github.adizcode.cloudynotes.ui.view.common.CustomTextField
-import com.github.adizcode.cloudynotes.ui.view.common.MainSubScreenHeading
+import com.github.adizcode.cloudynotes.ui.viewmodel.NotesViewModel
 
 @Composable
 fun NoteUploadSubScreen(
@@ -30,7 +30,7 @@ fun NoteUploadSubScreen(
         modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Absolute.spacedBy(40.dp)
     ) {
-        MainSubScreenHeading("Add a new note:")
+        CoreSubScreenHeading("Add a new note:")
 
         Column {
 
@@ -48,7 +48,8 @@ fun NoteUploadSubScreen(
             }
         }
 
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Absolute.spacedBy(20.dp)) {
+        Row(modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Absolute.spacedBy(20.dp)) {
             OutlinedButton(modifier = Modifier.weight(0.5f), onClick = { /*TODO*/ }) {
                 Text("Back")
             }

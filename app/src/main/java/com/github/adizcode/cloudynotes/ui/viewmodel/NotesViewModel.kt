@@ -1,4 +1,4 @@
-package com.github.adizcode.cloudynotes.ui
+package com.github.adizcode.cloudynotes.ui.viewmodel
 
 import android.app.Application
 import android.net.Uri
@@ -6,9 +6,10 @@ import android.util.Log
 import android.widget.Toast
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.AndroidViewModel
+import com.github.adizcode.cloudynotes.data.model.UserNote
+import com.github.adizcode.cloudynotes.ui.activity.EMAIL_POSTFIX
 import com.github.adizcode.cloudynotes.utils.FirebaseCollections.USERS
 import com.github.adizcode.cloudynotes.utils.FirebaseCollections.USER_NOTES
-import com.github.adizcode.cloudynotes.data.model.UserNote
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore

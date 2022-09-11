@@ -11,16 +11,16 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.github.adizcode.cloudynotes.ui.NotesViewModel
-import com.github.adizcode.cloudynotes.ui.view.main.subscreens.HomeSubScreen
-import com.github.adizcode.cloudynotes.ui.view.main.subscreens.MyNotesSubScreen
-import com.github.adizcode.cloudynotes.ui.view.main.subscreens.NoteUploadSubScreen
+import com.github.adizcode.cloudynotes.ui.view.core.subscreen.HomeSubScreen
+import com.github.adizcode.cloudynotes.ui.view.core.subscreen.MyNotesSubScreen
+import com.github.adizcode.cloudynotes.ui.view.core.subscreen.NoteUploadSubScreen
+import com.github.adizcode.cloudynotes.ui.viewmodel.NotesViewModel
 
-sealed class MainSubScreens(val route: String, val label: String, val imageVector: ImageVector) {
-    object Home : MainSubScreens("home", "Home", Icons.Filled.Home)
-    object Search : MainSubScreens("search", "Search", Icons.Filled.Search)
-    object MyNotes : MainSubScreens("myNotes", "My Notes", Icons.Filled.Notes)
-    object NoteUpload : MainSubScreens("noteUpload", "Upload Note", Icons.Filled.Upload)
+sealed class CoreSubScreen(val route: String, val label: String, val imageVector: ImageVector) {
+    object Home : CoreSubScreen("home", "Home", Icons.Filled.Home)
+    object Search : CoreSubScreen("search", "Search", Icons.Filled.Search)
+    object MyNotes : CoreSubScreen("myNotes", "My Notes", Icons.Filled.Notes)
+    object NoteUpload : CoreSubScreen("noteUpload", "Upload Note", Icons.Filled.Upload)
 
     companion object {
         val bottomNavBarScreens = listOf(
@@ -32,7 +32,7 @@ sealed class MainSubScreens(val route: String, val label: String, val imageVecto
 }
 
 @Composable
-fun MainNavHost(
+fun CoreNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController,
     openFile: () -> Unit,
@@ -41,15 +41,15 @@ fun MainNavHost(
     NavHost(
         modifier = modifier,
         navController = navController,
-        startDestination = MainSubScreens.Home.route,
+        startDestination = CoreSubScreen.Home.route,
     ) {
-        composable(MainSubScreens.Home.route) {
+        composable(CoreSubScreen.Home.route) {
             HomeSubScreen()
         }
-        composable(MainSubScreens.MyNotes.route) {
+        composable(CoreSubScreen.MyNotes.route) {
             MyNotesSubScreen()
         }
-        composable(MainSubScreens.NoteUpload.route) {
+        composable(CoreSubScreen.NoteUpload.route) {
             NoteUploadSubScreen(viewModel = viewModel, openFile = openFile)
         }
     }

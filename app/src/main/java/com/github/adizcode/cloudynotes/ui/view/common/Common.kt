@@ -42,7 +42,7 @@ fun CustomTextField(
 }
 
 @Composable
-fun MainSubScreenHeading(text: String) {
+fun CoreSubScreenHeading(text: String) {
     Text(text,
         fontSize = 32.sp,
         fontWeight = FontWeight.ExtraBold,
