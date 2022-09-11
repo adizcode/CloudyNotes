@@ -50,9 +50,11 @@ fun CoreNavHost(
             MyNotesSubScreen()
         }
         composable(CoreSubScreen.NoteUpload.route) {
-            NoteUploadSubScreen(viewModel = viewModel,
+            NoteUploadSubScreen(
+                viewModel = viewModel,
                 openFile = openFile,
-                goBack = { navController.popBackStack() })
+                goBack = { navController.popBackStack() },
+            )
         }
     }
 }

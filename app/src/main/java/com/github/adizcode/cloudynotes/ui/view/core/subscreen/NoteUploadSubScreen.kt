@@ -35,7 +35,7 @@ fun NoteUploadSubScreen(
         modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Absolute.spacedBy(40.dp)
     ) {
-        CoreSubScreenHeading("Add a new note:")
+        CoreSubScreenHeading(text = "Add a new note:")
 
         Column {
 

@@ -28,7 +28,7 @@ fun MyNotesSubScreen(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier.fillMaxSize(),
     ) {
-        CoreSubScreenHeading("Your notes:")
+        CoreSubScreenHeading(text = "Your notes:")
 
         LazyColumn(verticalArrangement = Arrangement.Absolute.spacedBy(20.dp)) {
             item {
