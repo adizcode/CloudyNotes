@@ -3,7 +3,18 @@ package com.github.adizcode.cloudynotes.data.model
 import android.net.Uri
 
 data class UserNote(
-    val desc: String,
-    val downloadUrl: Uri,
-    val isPublic: Boolean,
-)
+    val desc: String = "Default Description",
+    val downloadUrl: Uri = Uri.EMPTY,
+    val public: Boolean = false,
+) {
+    companion object {
+        fun createFromDocMap(docMap: Map<String, Any>?): UserNote {
+            if (docMap == null) return UserNote()
+            return UserNote(
+                desc = docMap["desc"] as String,
+                downloadUrl = Uri.parse(docMap["downloadUrl"] as String),
+                public = docMap["public"] as Boolean
+            )
+        }
+    }
+}
