@@ -17,16 +17,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.github.adizcode.cloudynotes.ui.theme.Background
 import com.github.adizcode.cloudynotes.ui.theme.TextBlack
 import com.github.adizcode.cloudynotes.ui.view.common.CustomTextField
-import com.github.adizcode.cloudynotes.ui.viewmodel.NotesViewModel
+import com.github.adizcode.cloudynotes.ui.viewmodel.AuthViewModel
 
 @Composable
 fun RegisterScreen(
     navigateToHome: () -> Unit,
     navigateToLogin: () -> Unit,
-    viewModel: NotesViewModel,
+    viewModel: AuthViewModel = viewModel(),
 ) {
 
     val (uid, setUid) = remember { mutableStateOf("") }

@@ -64,10 +64,19 @@ dependencies {
 
     def nav_version = "2.5.1"
 
+    // ViewModel Compose
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$compose_version"
+
+    // Compose LiveData Extensions
+    implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
+
+    // Navigation Compose
     implementation "androidx.navigation:navigation-compose:$nav_version"
 
+    // Coil Compose
     implementation "io.coil-kt:coil-compose:2.2.0"
 
+    // Material Icons Extended
     implementation "androidx.compose.material:material-icons-extended:$compose_version"
 
     // Firebase BoM

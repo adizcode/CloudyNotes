@@ -46,12 +46,12 @@ import com.github.adizcode.cloudynotes.ui.navigation.CoreSubScreen
 import com.github.adizcode.cloudynotes.ui.theme.Background
 import com.github.adizcode.cloudynotes.ui.theme.SecondaryBackground
 import com.github.adizcode.cloudynotes.ui.view.core.subscreen.SearchBottomSheet
-import com.github.adizcode.cloudynotes.ui.viewmodel.NotesViewModel
+import com.github.adizcode.cloudynotes.ui.viewmodel.MyNotesViewModel
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun CoreScaffold(viewModel: NotesViewModel, openFile: () -> Unit) {
+fun CoreScaffold(viewModel: MyNotesViewModel, openFile: () -> Unit) {
     val bottomSheetScaffoldState = rememberBottomSheetScaffoldState(
         bottomSheetState = BottomSheetState(BottomSheetValue.Collapsed)
     )

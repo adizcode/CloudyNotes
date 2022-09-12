@@ -23,12 +23,12 @@ import com.github.adizcode.cloudynotes.ui.theme.Background
 import com.github.adizcode.cloudynotes.ui.theme.TextBlack
 import com.github.adizcode.cloudynotes.ui.view.common.CoreSubScreenHeading
 import com.github.adizcode.cloudynotes.ui.view.common.CustomTextField
-import com.github.adizcode.cloudynotes.ui.viewmodel.NotesViewModel
+import com.github.adizcode.cloudynotes.ui.viewmodel.MyNotesViewModel
 
 @Composable
 fun NoteUploadSubScreen(
     modifier: Modifier = Modifier,
-    viewModel: NotesViewModel,
+    viewModel: MyNotesViewModel,
     openFile: () -> Unit,
     goBack: () -> Unit,
 ) {

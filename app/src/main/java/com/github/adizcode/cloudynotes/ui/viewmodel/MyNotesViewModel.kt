@@ -6,11 +6,11 @@ import android.util.Log
 import android.widget.Toast
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.github.adizcode.cloudynotes.data.model.UserNote
-import com.github.adizcode.cloudynotes.ui.activity.EMAIL_POSTFIX
 import com.github.adizcode.cloudynotes.utils.FirebaseCollections.USERS
 import com.github.adizcode.cloudynotes.utils.FirebaseCollections.USER_NOTES
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
@@ -21,51 +21,46 @@ import com.google.firebase.storage.ktx.component1
 import com.google.firebase.storage.ktx.component2
 import com.google.firebase.storage.ktx.storage
 
-class NotesViewModel(application: Application) : AndroidViewModel(application) {
+class MyNotesViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val auth: FirebaseAuth = Firebase.auth
     private val firestore: FirebaseFirestore = Firebase.firestore
     private val storage: FirebaseStorage = Firebase.storage
+
+    private val _myPublicNotes = MutableLiveData<List<UserNote>>()
+
+    val myPublicNotes: LiveData<List<UserNote>>
+        get() = _myPublicNotes
+
+    private val _myPrivateNotes = MutableLiveData<List<UserNote>>()
+
+    val myPrivateNotes: LiveData<List<UserNote>>
+        get() = _myPrivateNotes
 
     val noteDescState = mutableStateOf("")
 
     private var selectedNoteUri: Uri? = null
 
-    fun login(uid: String, password: String, navigateToHome: () -> Unit) {
-
-        if (uid.isNotBlank() && password.isNotBlank()) {
-            auth.signInWithEmailAndPassword(uid.trim() + EMAIL_POSTFIX, password)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        // Sign in success, update UI with the signed-in user's information
-                        val user = auth.currentUser
-                        navigateToHome()
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        Toast.makeText(getApplication(),
-                            "Error: Please make sure to enter the correct details.",
-                            Toast.LENGTH_SHORT).show()
-                    }
-                }
-        }
+    init {
+        fetchDummyNotes()
     }
 
-    fun register(uid: String, password: String, navigateToHome: () -> Unit) {
-        if (uid.isNotBlank() && password.isNotBlank()) {
-            auth.createUserWithEmailAndPassword(uid.trim() + EMAIL_POSTFIX, password)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        // Sign in success, update UI with the signed-in user's information
-                        val user = auth.currentUser
-                        navigateToHome()
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        Toast.makeText(getApplication(),
-                            "Error: Please make sure to enter the correct details.",
-                            Toast.LENGTH_SHORT).show()
-                    }
-                }
-        }
+    private fun fetchDummyNotes() {
+        val publicNotes = listOf(
+            UserNote("Dummy Data", Uri.EMPTY, true),
+            UserNote("Dummy Data", Uri.EMPTY, true),
+            UserNote("Dummy Data", Uri.EMPTY, true),
+        )
+
+        val privateNotes = listOf(
+            UserNote("Dummy Data", Uri.EMPTY, false),
+            UserNote("Dummy Data", Uri.EMPTY, false),
+            UserNote("Dummy Data", Uri.EMPTY, false),
+            UserNote("Dummy Data", Uri.EMPTY, false),
+            UserNote("Dummy Data", Uri.EMPTY, false),
+        )
+
+        _myPublicNotes.value = publicNotes
+        _myPrivateNotes.value = privateNotes
     }
 
     fun updateSelectedNoteUri(noteUri: Uri) {
@@ -103,7 +98,7 @@ class NotesViewModel(application: Application) : AndroidViewModel(application) {
     ) {
 
 
-        val currentUid = auth.currentUser?.uid
+        val currentUid = Firebase.auth.currentUser?.uid
 
         if (currentUid != null) {
             val userNotes = firestore.collection(USERS).document(currentUid).collection(USER_NOTES)

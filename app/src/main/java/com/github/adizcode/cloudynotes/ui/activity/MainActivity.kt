@@ -9,7 +9,7 @@ import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import com.github.adizcode.cloudynotes.ui.navigation.MyAppNavHost
 import com.github.adizcode.cloudynotes.ui.theme.CloudyNotesTheme
-import com.github.adizcode.cloudynotes.ui.viewmodel.NotesViewModel
+import com.github.adizcode.cloudynotes.ui.viewmodel.MyNotesViewModel
 
 
 // Request code for selecting a PDF document.
@@ -19,7 +19,7 @@ const val EMAIL_POSTFIX = "@cumail.in"
 
 class MainActivity : ComponentActivity() {
 
-    private val viewModel: NotesViewModel by viewModels()
+    private val viewModel: MyNotesViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
