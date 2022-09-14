@@ -19,16 +19,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.github.adizcode.cloudynotes.ui.theme.Background
 import com.github.adizcode.cloudynotes.ui.theme.TextBlack
 import com.github.adizcode.cloudynotes.ui.view.common.CoreSubScreenHeading
 import com.github.adizcode.cloudynotes.ui.view.common.CustomTextField
-import com.github.adizcode.cloudynotes.ui.viewmodel.MyNotesViewModel
+import com.github.adizcode.cloudynotes.ui.view.common.LabelledCheckBox
+import com.github.adizcode.cloudynotes.ui.viewmodel.NoteUploadViewModel
 
 @Composable
 fun NoteUploadSubScreen(
     modifier: Modifier = Modifier,
-    viewModel: MyNotesViewModel,
+    viewModel: NoteUploadViewModel = viewModel(),
     openFile: () -> Unit,
     goBack: () -> Unit,
 ) {
@@ -59,6 +61,13 @@ fun NoteUploadSubScreen(
                 Icon(Icons.Filled.Upload, null)
             }
         }
+
+        LabelledCheckBox(
+            modifier = Modifier.fillMaxWidth(),
+            checked = viewModel.notePublicState.value,
+            onCheckedChange = { viewModel.notePublicState.value = it },
+            label = "Make note public",
+        )
 
         Row(modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Absolute.spacedBy(20.dp)) {

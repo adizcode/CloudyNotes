@@ -6,7 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.github.adizcode.cloudynotes.ui.view.core.CoreScaffold
-import com.github.adizcode.cloudynotes.ui.viewmodel.MyNotesViewModel
+import com.github.adizcode.cloudynotes.ui.viewmodel.NoteUploadViewModel
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
@@ -17,7 +17,7 @@ enum class TopLevelNavRoutes(val route: String) {
 @Composable
 fun MyAppNavHost(
     navController: NavHostController = rememberNavController(),
-    viewModel: MyNotesViewModel,
+    viewModel: NoteUploadViewModel,
     openFile: () -> Unit,
 ) {
 
