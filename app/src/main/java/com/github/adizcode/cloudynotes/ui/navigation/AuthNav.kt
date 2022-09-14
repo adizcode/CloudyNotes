@@ -6,7 +6,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import com.github.adizcode.cloudynotes.ui.view.auth.LoginScreen
 import com.github.adizcode.cloudynotes.ui.view.auth.RegisterScreen
-import com.github.adizcode.cloudynotes.ui.viewmodel.MyNotesViewModel
 
 enum class AuthScreens {
     LOGIN, REGISTER

@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.github.adizcode.cloudynotes.data.model.UserNote
 import com.github.adizcode.cloudynotes.ui.view.common.CoreSubScreenHeading
 import com.github.adizcode.cloudynotes.ui.view.common.NoteCard
 
@@ -34,7 +35,7 @@ fun HomeSubScreen(modifier: Modifier = Modifier) {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                NoteCard()
+                NoteCard(UserNote())
 
                 if (index == dummyList.lastIndex) {
                     Spacer(modifier = Modifier.height(verticalSpace))

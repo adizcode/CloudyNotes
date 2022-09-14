@@ -36,13 +36,13 @@ fun MyNotesSubScreen(modifier: Modifier = Modifier, viewModel: MyNotesViewModel 
             CoreSubScreenSubHeading(text = "Public Notes")
         }
         items(publicNotes) {
-            NoteCard()
+            NoteCard(it)
         }
         item {
             CoreSubScreenSubHeading(text = "Private Notes")
         }
-        itemsIndexed(privateNotes) { index, _ ->
-            NoteCard()
+        itemsIndexed(privateNotes) { index, note ->
+            NoteCard(note)
 
             if (index == privateNotes.lastIndex) {
                 Spacer(modifier = Modifier.height(verticalSpace))

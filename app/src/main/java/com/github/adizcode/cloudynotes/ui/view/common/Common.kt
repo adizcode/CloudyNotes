@@ -32,8 +32,8 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.github.adizcode.cloudynotes.data.model.UserNote
 import com.github.adizcode.cloudynotes.ui.theme.Background
-import com.github.adizcode.cloudynotes.ui.theme.TextBlack
 
 @Composable
 fun CustomTextField(
@@ -76,7 +76,7 @@ fun CoreSubScreenSubHeading(modifier: Modifier = Modifier, text: String) {
 }
 
 @Composable
-fun NoteCard() {
+fun NoteCard(note: UserNote) {
     Card(
         modifier = Modifier
             .height(250.dp)
@@ -85,16 +85,20 @@ fun NoteCard() {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             AsyncImage(
                 model = "https://images.squarespace-cdn.com/content/v1/51b3dc8ee4b051b96ceb10de/1534799078116-K7SMXJF3P0NT2W92SO6T/image-asset.jpeg",
-                contentDescription = null,
+                contentDescription = note.desc,
                 modifier = Modifier
                     .weight(0.7f),
                 contentScale = ContentScale.Crop,
             )
-            Row(modifier = Modifier.weight(0.3f),
-                verticalAlignment = Alignment.CenterVertically) {
-                Text("Descriptive File Name",
+            Row(
+                modifier = Modifier.weight(0.3f),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Text(
+                    text = note.desc,
                     fontWeight = FontWeight.Bold,
-                    fontSize = 18.sp)
+                    fontSize = 18.sp,
+                )
             }
         }
     }
@@ -129,7 +133,7 @@ fun LabelledCheckBox(
         Checkbox(
             checked = checked,
             onCheckedChange = null,
-            colors = CheckboxDefaults.colors(checkedColor = Background, )
+            colors = CheckboxDefaults.colors(checkedColor = Background)
         )
     }
 }
