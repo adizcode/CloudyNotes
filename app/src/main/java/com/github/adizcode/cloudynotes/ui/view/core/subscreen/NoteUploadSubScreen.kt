@@ -81,7 +81,7 @@ fun NoteUploadSubScreen(
                 Text("Back")
             }
             Button(
-                modifier = Modifier.weight(0.5f), onClick = viewModel::uploadNoteToStorage,
+                modifier = Modifier.weight(0.5f), onClick = { viewModel.addNewNote(goBack) },
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = Background,
                     contentColor = TextBlack,

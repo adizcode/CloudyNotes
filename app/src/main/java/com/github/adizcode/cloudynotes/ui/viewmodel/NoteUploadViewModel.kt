@@ -35,7 +35,11 @@ class NoteUploadViewModel(application: Application) : AndroidViewModel(applicati
         Toast.makeText(getApplication(), "Note selected!", Toast.LENGTH_SHORT).show()
     }
 
-    fun uploadNoteToStorage() {
+    fun addNewNote(runAfterUserNoteAdded: () -> Unit) {
+        uploadNoteToStorage(runAfterUserNoteAdded)
+    }
+
+    private fun uploadNoteToStorage(runAfterUserNoteStored: () -> Unit) {
         val noteUri = selectedNoteUri ?: return
 
         // Perform operations on the document using its URI.
@@ -53,7 +57,12 @@ class NoteUploadViewModel(application: Application) : AndroidViewModel(applicati
             // Handle successful uploads on complete
             val ref = it.storage
 
-            storeUserNoteInFirestore(ref, noteDescState.value, notePublicState.value)
+            storeUserNoteInFirestore(
+                ref = ref,
+                desc = noteDescState.value,
+                isPublic = notePublicState.value,
+                runAfterUserNoteStored = runAfterUserNoteStored,
+            )
 
         }
     }
@@ -62,8 +71,8 @@ class NoteUploadViewModel(application: Application) : AndroidViewModel(applicati
         ref: StorageReference,
         desc: String,
         isPublic: Boolean,
+        runAfterUserNoteStored: () -> Unit,
     ) {
-
 
         val currentUid = getCurrentUid()
 
@@ -82,6 +91,9 @@ class NoteUploadViewModel(application: Application) : AndroidViewModel(applicati
                 ).addOnSuccessListener {
                     Toast.makeText(getApplication(), "Note has been added!", Toast.LENGTH_SHORT)
                         .show()
+                    runAfterUserNoteStored()
+                    resetNewNoteState()
+
                 }.addOnFailureListener {
                     Toast.makeText(getApplication(),
                         "An error has occurred",
@@ -94,6 +106,12 @@ class NoteUploadViewModel(application: Application) : AndroidViewModel(applicati
             }
 
         }
+    }
+
+    private fun resetNewNoteState() {
+        noteDescState.value = ""
+        notePublicState.value = true
+        selectedNoteUri = null
     }
 
     private fun getCurrentUid() = auth.currentUser?.uid
