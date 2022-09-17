@@ -155,7 +155,7 @@ fun TopBar(modifier: Modifier = Modifier) {
             horizontalArrangement = Arrangement.Absolute.spacedBy(10.dp),
         ) {
             AsyncImage(
-                model = "https://4dhealth.ca/wp-content/uploads/2021/04/happy.jpg",
+                model = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
