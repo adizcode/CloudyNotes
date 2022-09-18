@@ -59,7 +59,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                 }
 
                 withContext(Dispatchers.Default) {
-                    notesFeedList.sortBy(UserNote::timeStamp)
+                    notesFeedList.sortByDescending(UserNote::timeStamp)
                     _notesFeed.postValue(notesFeedList)
                 }
             } catch (e: Exception) {

@@ -54,6 +54,7 @@ class MyNotesViewModel(application: Application) : AndroidViewModel(application)
 
                     _myPublicNotes.value =
                         value?.documents?.map { UserNote.createFromDocMap(it.data) }
+                            ?.sortedByDescending(UserNote::timeStamp)
                 }
 
             userNotesCollection.whereEqualTo("public", false)
@@ -65,6 +66,7 @@ class MyNotesViewModel(application: Application) : AndroidViewModel(application)
 
                     _myPrivateNotes.value =
                         value?.documents?.map { UserNote.createFromDocMap(it.data) }
+                            ?.sortedByDescending(UserNote::timeStamp)
                 }
         }
     }

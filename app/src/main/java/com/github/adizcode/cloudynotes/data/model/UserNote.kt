@@ -19,7 +19,7 @@ data class UserNote(
                 desc = docMap["desc"] as String,
                 downloadUrl = Uri.parse(docMap["downloadUrl"] as String),
                 public = docMap["public"] as Boolean,
-                timeStamp = docMap["timeStamp"] as Timestamp
+                timeStamp = docMap["timeStamp"] as Timestamp?
             )
         }
     }
