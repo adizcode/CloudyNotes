@@ -21,6 +21,10 @@ import com.google.firebase.storage.ktx.storage
 
 class NoteUploadViewModel(application: Application) : AndroidViewModel(application) {
 
+    companion object {
+        private const val TAG = "NoteUploadViewModel"
+    }
+
     private val firestore: FirebaseFirestore = Firebase.firestore
     private val storage: FirebaseStorage = Firebase.storage
     private val auth: FirebaseAuth = Firebase.auth
@@ -77,34 +81,50 @@ class NoteUploadViewModel(application: Application) : AndroidViewModel(applicati
         val currentUid = getCurrentUid()
 
         if (currentUid != null) {
-            val userNotes =
-                firestore.collection(FirebaseCollections.USERS).document(currentUid).collection(
-                    FirebaseCollections.USER_NOTES)
 
-            ref.downloadUrl.addOnSuccessListener {
-                userNotes.add(
-                    UserNote(
-                        desc = desc,
-                        downloadUrl = it,
-                        public = isPublic,
-                    ),
-                ).addOnSuccessListener {
-                    Toast.makeText(getApplication(), "Note has been added!", Toast.LENGTH_SHORT)
-                        .show()
-                    runAfterUserNoteStored()
-                    resetNewNoteState()
+            val userDoc = firestore.collection(FirebaseCollections.USERS).document(currentUid)
 
+            userDoc.set("isDummyField" to true)
+                .addOnSuccessListener {
+
+                    val userNotes =
+                        userDoc.collection(
+                            FirebaseCollections.USER_NOTES)
+
+                    ref.downloadUrl.addOnSuccessListener {
+                        val newNote = UserNote(
+                            desc = desc,
+                            downloadUrl = it,
+                            public = isPublic,
+                        )
+
+                        userNotes.add(newNote).addOnSuccessListener {
+                            Toast.makeText(getApplication(),
+                                "Note has been added!",
+                                Toast.LENGTH_SHORT)
+                                .show()
+                            runAfterUserNoteStored()
+                            resetNewNoteState()
+
+                        }.addOnFailureListener {
+                            Log.e(TAG, "Error while adding note in firestore")
+                            Toast.makeText(getApplication(),
+                                "An error has occurred",
+                                Toast.LENGTH_SHORT).show()
+                        }
+
+                    }.addOnFailureListener {
+                        Log.e(TAG, "Error while getting download url")
+                        Toast.makeText(getApplication(),
+                            "An error has occurred",
+                            Toast.LENGTH_SHORT).show()
+                    }
                 }.addOnFailureListener {
+                    Log.e(TAG, "Error while setting dummy field in user doc")
                     Toast.makeText(getApplication(),
                         "An error has occurred",
                         Toast.LENGTH_SHORT).show()
                 }
-            }.addOnFailureListener {
-                Toast.makeText(getApplication(),
-                    "An error has occurred",
-                    Toast.LENGTH_SHORT).show()
-            }
-
         }
     }
 

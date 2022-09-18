@@ -9,18 +9,22 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.github.adizcode.cloudynotes.data.model.UserNote
 import com.github.adizcode.cloudynotes.ui.view.common.CoreSubScreenHeading
 import com.github.adizcode.cloudynotes.ui.view.common.NoteCard
+import com.github.adizcode.cloudynotes.ui.viewmodel.HomeViewModel
 
 @Preview(showSystemUi = true)
 @Composable
-fun HomeSubScreen(modifier: Modifier = Modifier) {
-    val dummyList = (1..10).toList()
+fun HomeSubScreen(modifier: Modifier = Modifier, viewModel: HomeViewModel = viewModel()) {
+    val notesFeed by viewModel.notesFeed.observeAsState(emptyList())
     val verticalSpace = 20.dp
 
     LazyColumn(modifier = modifier, verticalArrangement = Arrangement.spacedBy(verticalSpace)) {
@@ -30,14 +34,14 @@ fun HomeSubScreen(modifier: Modifier = Modifier) {
                 text = "Fresh study material: ",
             )
         }
-        itemsIndexed(dummyList) { index, _ ->
+        itemsIndexed(notesFeed) { index, feedNote ->
             Column(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                NoteCard(UserNote())
+                NoteCard(feedNote)
 
-                if (index == dummyList.lastIndex) {
+                if (index == notesFeed.lastIndex) {
                     Spacer(modifier = Modifier.height(verticalSpace))
                 }
             }

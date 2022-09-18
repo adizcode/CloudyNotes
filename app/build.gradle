@@ -90,4 +90,7 @@ dependencies {
 
     // Firebase Firestore
     implementation 'com.google.firebase:firebase-firestore-ktx'
+
+    // Coroutines for Firebase
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4'
 }
