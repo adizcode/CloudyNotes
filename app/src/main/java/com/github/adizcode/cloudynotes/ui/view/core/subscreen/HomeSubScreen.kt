@@ -16,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.github.adizcode.cloudynotes.data.model.UserNote
 import com.github.adizcode.cloudynotes.ui.view.common.CoreSubScreenHeading
 import com.github.adizcode.cloudynotes.ui.view.common.NoteCard
 import com.github.adizcode.cloudynotes.ui.viewmodel.HomeViewModel

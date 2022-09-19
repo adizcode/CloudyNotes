@@ -14,7 +14,7 @@ import androidx.navigation.compose.composable
 import com.github.adizcode.cloudynotes.ui.view.core.subscreen.HomeSubScreen
 import com.github.adizcode.cloudynotes.ui.view.core.subscreen.MyNotesSubScreen
 import com.github.adizcode.cloudynotes.ui.view.core.subscreen.NoteUploadSubScreen
-import com.github.adizcode.cloudynotes.ui.viewmodel.NoteUploadViewModel
+import com.github.adizcode.cloudynotes.ui.viewmodel.CoreViewModel
 
 sealed class CoreSubScreen(val route: String, val label: String, val imageVector: ImageVector) {
     object Home : CoreSubScreen("home", "Home", Icons.Filled.Home)
@@ -36,7 +36,7 @@ fun CoreNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController,
     openFile: () -> Unit,
-    viewModel: NoteUploadViewModel,
+    viewModel: CoreViewModel,
 ) {
     NavHost(
         modifier = modifier,

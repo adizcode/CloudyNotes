@@ -19,7 +19,11 @@ import com.google.firebase.storage.ktx.component1
 import com.google.firebase.storage.ktx.component2
 import com.google.firebase.storage.ktx.storage
 
-class NoteUploadViewModel(application: Application) : AndroidViewModel(application) {
+/**
+ * CoreViewModel with app-wide state
+ *  TODO: State related to the NoteUploadSubScreen should be extracted into a separate ViewModel
+ */
+class CoreViewModel(application: Application) : AndroidViewModel(application) {
 
     companion object {
         private const val TAG = "NoteUploadViewModel"
@@ -33,6 +37,11 @@ class NoteUploadViewModel(application: Application) : AndroidViewModel(applicati
     val notePublicState = mutableStateOf(true)
 
     private var selectedNoteUri: Uri? = null
+
+    fun logOut(runAfterLogOut: () -> Unit) {
+        auth.signOut()
+        runAfterLogOut()
+    }
 
     fun updateSelectedNoteUri(noteUri: Uri) {
         selectedNoteUri = noteUri

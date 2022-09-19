@@ -25,12 +25,12 @@ import com.github.adizcode.cloudynotes.ui.theme.TextBlack
 import com.github.adizcode.cloudynotes.ui.view.common.CoreSubScreenHeading
 import com.github.adizcode.cloudynotes.ui.view.common.CustomTextField
 import com.github.adizcode.cloudynotes.ui.view.common.LabelledCheckBox
-import com.github.adizcode.cloudynotes.ui.viewmodel.NoteUploadViewModel
+import com.github.adizcode.cloudynotes.ui.viewmodel.CoreViewModel
 
 @Composable
 fun NoteUploadSubScreen(
     modifier: Modifier = Modifier,
-    viewModel: NoteUploadViewModel = viewModel(),
+    viewModel: CoreViewModel = viewModel(),
     openFile: () -> Unit,
     goBack: () -> Unit,
 ) {

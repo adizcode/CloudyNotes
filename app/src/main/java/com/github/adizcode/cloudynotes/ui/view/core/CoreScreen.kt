@@ -23,6 +23,7 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.FileUpload
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.rememberBottomSheetScaffoldState
@@ -46,12 +47,16 @@ import com.github.adizcode.cloudynotes.ui.navigation.CoreSubScreen
 import com.github.adizcode.cloudynotes.ui.theme.Background
 import com.github.adizcode.cloudynotes.ui.theme.SecondaryBackground
 import com.github.adizcode.cloudynotes.ui.view.core.subscreen.SearchBottomSheet
-import com.github.adizcode.cloudynotes.ui.viewmodel.NoteUploadViewModel
+import com.github.adizcode.cloudynotes.ui.viewmodel.CoreViewModel
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun CoreScaffold(viewModel: NoteUploadViewModel, openFile: () -> Unit) {
+fun CoreScaffold(
+    viewModel: CoreViewModel,
+    navigateToAuthPostLogout: () -> Unit,
+    openFile: () -> Unit,
+) {
     val bottomSheetScaffoldState = rememberBottomSheetScaffoldState(
         bottomSheetState = BottomSheetState(BottomSheetValue.Collapsed)
     )
@@ -76,9 +81,12 @@ fun CoreScaffold(viewModel: NoteUploadViewModel, openFile: () -> Unit) {
             backgroundColor = SecondaryBackground,
             topBar = {
                 Card(elevation = 10.dp, backgroundColor = Background) {
-                    TopBar(Modifier
-                        .background(Background)
-                        .padding(16.dp))
+                    TopBar(
+                        modifier = Modifier
+                            .background(Background)
+                            .padding(16.dp),
+                        onLogOut = { viewModel.logOut(navigateToAuthPostLogout) }
+                    )
                 }
             },
             floatingActionButton = {
@@ -145,7 +153,7 @@ fun CoreScaffold(viewModel: NoteUploadViewModel, openFile: () -> Unit) {
 }
 
 @Composable
-fun TopBar(modifier: Modifier = Modifier) {
+fun TopBar(modifier: Modifier = Modifier, onLogOut: () -> Unit) {
 
     Row(modifier = modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
@@ -166,10 +174,21 @@ fun TopBar(modifier: Modifier = Modifier) {
             )
             Text("Hi, how are you?", fontSize = 18.sp, fontWeight = FontWeight.Medium)
         }
-        IconButton(onClick = { /*TODO*/ }) {
-            Icon(modifier = Modifier.size(28.dp),
-                imageVector = Icons.Filled.Notifications,
-                contentDescription = null)
+        Row {
+            IconButton(onClick = { /*TODO*/ }) {
+                Icon(
+                    modifier = Modifier.size(28.dp),
+                    imageVector = Icons.Filled.Notifications,
+                    contentDescription = "Notification",
+                )
+            }
+            IconButton(onClick = onLogOut) {
+                Icon(
+                    modifier = Modifier.size(28.dp),
+                    imageVector = Icons.Filled.ExitToApp,
+                    contentDescription = "Log out",
+                )
+            }
         }
     }
 }
