@@ -1,18 +1,8 @@
 package com.github.adizcode.cloudynotes.ui.view.core.subscreen
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Icon
-import androidx.compose.material.OutlinedButton
-import androidx.compose.material.Text
+import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Upload
 import androidx.compose.runtime.Composable
@@ -34,6 +24,10 @@ fun NoteUploadSubScreen(
     openFile: () -> Unit,
     goBack: () -> Unit,
 ) {
+    val onBack = { viewModel.resetNewNoteState(goBack) }
+
+    BackHandler(onBack = onBack)
+
     Column(
         modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(40.dp)
@@ -69,10 +63,13 @@ fun NoteUploadSubScreen(
             label = "Make note public",
         )
 
-        Row(modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Absolute.spacedBy(20.dp)) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Absolute.spacedBy(20.dp)
+        ) {
             OutlinedButton(
-                modifier = Modifier.weight(0.5f), onClick = goBack,
+                modifier = Modifier.weight(0.5f),
+                onClick = onBack,
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = Color.White,
                     contentColor = TextBlack,

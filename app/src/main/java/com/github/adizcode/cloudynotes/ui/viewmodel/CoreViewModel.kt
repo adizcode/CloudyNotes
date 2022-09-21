@@ -112,8 +112,7 @@ class CoreViewModel(application: Application) : AndroidViewModel(application) {
                                 "Note has been added!",
                                 Toast.LENGTH_SHORT)
                                 .show()
-                            runAfterUserNoteStored()
-                            resetNewNoteState()
+                            resetNewNoteState(runBeforeStateReset = runAfterUserNoteStored)
 
                         }.addOnFailureListener {
                             Log.e(TAG, "Error while adding note in firestore")
@@ -137,7 +136,9 @@ class CoreViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    private fun resetNewNoteState() {
+    fun resetNewNoteState(runBeforeStateReset: () -> Unit) {
+        runBeforeStateReset()
+
         noteDescState.value = ""
         notePublicState.value = true
         selectedNoteUri = null
